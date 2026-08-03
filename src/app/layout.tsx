@@ -17,6 +17,10 @@ import { Scene } from "@/components/canvas/Scene";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
+import { OmniSearch } from "@/components/OmniSearch";
+import { GlobalNavigation } from "@/components/ui/GlobalNavigation";
+import { TopNav } from "@/components/ui/TopNav";
+
 export const metadata: Metadata = {
   title: "Atlas | Interactive Universe",
   description: "An Interactive Knowledge Experience",
@@ -41,6 +45,8 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <CustomCursor />
+          <OmniSearch />
+          <GlobalNavigation />
           <SmoothScroll>
             <Scene />
             <div className="relative z-10 min-h-full">

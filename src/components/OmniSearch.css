@@ -1,0 +1,19 @@
+[cmdk-group-heading] {
+  padding: 8px 16px;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+[cmdk-item][aria-selected="true"] {
+  background: hsl(var(--primary) / 0.15);
+  color: hsl(var(--primary));
+}
+
+[cmdk-empty] {
+  padding: 48px;
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+}

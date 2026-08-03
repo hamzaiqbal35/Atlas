@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ScrollManager } from "@/components/ScrollManager";
 import { InfoPanel } from "@/components/ui/InfoPanel";
-import { TopNav } from "@/components/ui/TopNav";
 import { MiniMap } from "@/components/ui/MiniMap";
 import TiltedCard from "@/components/ui/TiltedCard";
 import Folder from "@/components/ui/Folder";
@@ -12,7 +11,6 @@ export default function Home() {
   return (
     <>
       <ScrollManager />
-      <TopNav />
       <InfoPanel />
       <MiniMap />
       
