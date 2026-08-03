@@ -1,65 +1,100 @@
-import Image from "next/image";
-
+import { Button } from "@/components/ui/button";
+import { ScrollManager } from "@/components/ScrollManager";
+import { InfoPanel } from "@/components/ui/InfoPanel";
+import { TopNav } from "@/components/ui/TopNav";
+import { MiniMap } from "@/components/ui/MiniMap";
+import TiltedCard from "@/components/ui/TiltedCard";
+import Folder from "@/components/ui/Folder";
+import GalaxyBackground from "@/components/ui/GalaxyBackground";
+import GooeyNav from "@/components/ui/GooeyNav";
+import { HeroText } from "@/components/ui/HeroText";
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <>
+      <ScrollManager />
+      <TopNav />
+      <InfoPanel />
+      <MiniMap />
+      
+      <main id="main-scroll-container" className="flex flex-col relative pointer-events-none z-10">
+        
+        {/* Section 1: Sun */}
+        <section id="section-sun" className="h-screen w-full relative flex flex-col p-8 md:p-24 justify-between">
+          <HeroText />
+        </section>
+
+        {/* Section 2: Mercury */}
+        <section id="section-mercury" className="h-screen w-full"></section>
+
+        {/* Section 3: Venus */}
+        <section id="section-venus" className="h-screen w-full"></section>
+
+        {/* Section 4: Earth */}
+        <section id="section-earth" className="h-screen w-full flex flex-col p-8 md:p-24 justify-between">
+          <div className="flex justify-end pointer-events-auto mt-auto">
+            <div className="bg-background/80 backdrop-blur-md border border-border p-4 rounded-2xl flex flex-col gap-3 shadow-xl max-w-[340px]">
+              <TiltedCard
+                imageSrc="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800"
+                altText="Deep Space Observatory"
+                captionText="Earth Orbit telemetry"
+                containerHeight="200px"
+                containerWidth="100%"
+                imageHeight="200px"
+                imageWidth="100%"
+                rotateAmplitude={12}
+                scaleOnHover={1.05}
+                showMobileWarning={false}
+                showTooltip={true}
+              />
+              <div>
+                <h3 className="font-semibold text-sm">Observatory Data</h3>
+                <p className="text-xs text-muted-foreground mt-1">Live telemetry and imagery straight from deep space orbiters.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Moon */}
+        <section id="section-luna" className="h-screen w-full"></section>
+
+        {/* Section 6: Mars */}
+        <section id="section-mars" className="h-screen w-full flex items-center justify-end p-8 md:p-24 pointer-events-none">
+          <div className="pointer-events-auto">
+             <TiltedCard
+                imageSrc="/perseverance_rover.png"
+                altText="Mars Rover"
+                captionText="Perseverance Rover"
+                containerHeight="300px"
+                containerWidth="300px"
+                imageHeight="300px"
+                imageWidth="300px"
+                rotateAmplitude={15}
+                scaleOnHover={1.1}
+                showMobileWarning={false}
+                showTooltip={true}
+              />
+          </div>
+        </section>
+
+        {/* Section 7: Asteroid Belt */}
+        <section id="section-asteroid_belt" className="h-screen w-full"></section>
+
+        {/* Section 8: Jupiter */}
+        <section id="section-jupiter" className="h-screen w-full"></section>
+
+        {/* Section 9: Saturn */}
+        <section id="section-saturn" className="h-screen w-full"></section>
+
+        {/* Section 10: Uranus */}
+        <section id="section-uranus" className="h-screen w-full"></section>
+
+        {/* Section 11: Neptune */}
+        <section id="section-neptune" className="h-screen w-full"></section>
+
+        {/* Section 12: Pluto */}
+        <section id="section-pluto" className="h-screen w-full"></section>
+
       </main>
-    </div>
+    </>
   );
 }
