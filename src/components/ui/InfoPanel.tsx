@@ -9,11 +9,14 @@ import { TiltCard } from "./TiltCard";
 import Link from "next/link";
 import { Button } from "./button";
 import { fallbackBodies } from "@/lib/fallbackData";
+import { useState, useEffect } from "react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 
 export function InfoPanel() {
   const activeNodeId = useDataStore((state) => state.activeNodeId);
   const activeNode = activeNodeId ? knowledgeGraph[activeNodeId] : null;
   const setActiveNode = useDataStore((state) => state.setActiveNode);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const celestialBodyId = activeNodeId === 'luna' ? 'moon' : activeNodeId;
   const celestialData = celestialBodyId ? fallbackBodies[celestialBodyId] : null;
@@ -32,9 +35,18 @@ export function InfoPanel() {
             damping: 20, 
             mass: 1 
           }}
-          className="fixed left-8 top-28 bottom-36 w-80 z-50 pointer-events-auto perspective-[1000px]"
+          className="fixed left-4 right-4 top-24 bottom-40 md:left-8 md:right-auto md:top-28 md:bottom-36 md:w-80 z-50 pointer-events-none perspective-[1000px]"
         >
-          <TiltCard data-lenis-prevent="true" className="w-full h-full bg-background/60 backdrop-blur-xl border border-border/50 rounded-3xl p-6 shadow-2xl flex flex-col overflow-y-auto hide-scrollbar">
+          <TiltCard data-lenis-prevent="true" className={`w-full pointer-events-auto bg-background/60 backdrop-blur-xl border border-border/50 rounded-3xl p-6 shadow-2xl flex flex-col hide-scrollbar transition-all duration-300 relative ${isCollapsed ? 'h-32 overflow-hidden md:h-full md:overflow-y-auto' : 'h-full overflow-y-auto'}`}>
+            <button 
+              className="md:hidden absolute top-5 right-5 p-2 bg-secondary/80 rounded-full hover:bg-secondary text-foreground transition-colors z-20"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsCollapsed(!isCollapsed);
+              }}
+            >
+              {isCollapsed ? <ChevronDown className="w-5 h-5" /> : <ChevronUp className="w-5 h-5" />}
+            </button>
             <div className="flex-1">
               <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
                 {activeNode.category}

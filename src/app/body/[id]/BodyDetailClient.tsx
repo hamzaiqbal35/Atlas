@@ -158,14 +158,14 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </nav>
 
         {/* Hero / Overview Section */}
-        <section id="overview" className="min-h-screen flex flex-col justify-center p-8 md:p-24 relative">
+        <section id="overview" className="min-h-screen flex flex-col justify-center px-6 py-16 md:p-24 relative">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-4 capitalize bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/20">
+            <h1 className="text-5xl md:text-9xl font-black tracking-tighter mb-4 capitalize bg-clip-text text-transparent bg-gradient-to-br from-white via-white/90 to-white/20">
               {staticData.name}
             </h1>
             <p className="text-2xl md:text-4xl text-[var(--theme-primary)] font-medium mb-16 tracking-tight opacity-80">
@@ -176,7 +176,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </section>
 
         {/* Live Dashboard / Physical Properties */}
-        <section id="physical-properties" className="py-24 md:py-32 px-8 md:px-24 relative">
+        <section id="physical-properties" className="py-16 md:py-32 px-6 md:px-24 relative">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -184,7 +184,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
             transition={{ duration: 0.6 }}
             className="w-full relative z-10"
           >
-            <h2 className="text-5xl font-bold mb-16 flex items-center gap-4 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 flex items-center gap-4 tracking-tight">
               <Ruler className="w-10 h-10 text-[var(--theme-primary)]" /> Physical Properties
             </h2>
             
@@ -230,14 +230,14 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </section>
 
         {/* Orbital Data */}
-        <section id="orbital-data" className="py-24 md:py-32 px-8 md:px-24">
+        <section id="orbital-data" className="py-16 md:py-32 px-6 md:px-24">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl font-bold mb-16 flex items-center gap-4 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 flex items-center gap-4 tracking-tight">
               <Orbit className="w-10 h-10 text-[var(--theme-primary)]" /> Orbital Mechanics
             </h2>
             
@@ -275,7 +275,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </section>
 
         {/* Composition */}
-        <section id="composition" className="py-24 md:py-32 px-8 md:px-24">
+        <section id="composition" className="py-16 md:py-32 px-6 md:px-24">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -283,7 +283,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
             transition={{ duration: 0.6 }}
             className="relative z-10"
           >
-            <h2 className="text-5xl font-bold mb-16 flex items-center gap-4 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 flex items-center gap-4 tracking-tight">
               <Thermometer className="w-10 h-10 text-[var(--theme-primary)]" /> Composition & Atmosphere
             </h2>
             
@@ -305,14 +305,14 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </section>
 
         {/* Exploration */}
-        <section id="exploration" className="py-24 md:py-32 px-8 md:px-24">
+        <section id="exploration" className="py-16 md:py-32 px-6 md:px-24">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-5xl font-bold mb-16 flex items-center gap-4 tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 flex items-center gap-4 tracking-tight">
               <Activity className="w-10 h-10 text-[var(--theme-primary)]" /> Exploration History
             </h2>
             
@@ -327,7 +327,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
         </section>
 
         {encyclopediaData?.sections?.moons && (
-          <section id="moons" className="py-24 md:py-32 px-8 md:px-24">
+          <section id="moons" className="py-16 md:py-32 px-6 md:px-24">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -335,7 +335,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
               transition={{ duration: 0.6 }}
               className="relative z-10"
             >
-              <h2 className="text-5xl font-bold mb-16 flex items-center gap-4 tracking-tight">
+              <h2 className="text-3xl md:text-5xl font-bold mb-12 md:mb-16 flex items-center gap-4 tracking-tight">
                 <Orbit className="w-10 h-10 text-[var(--theme-primary)]" /> Natural Satellites
               </h2>
               {renderSectionContent(encyclopediaData.sections.moons, false)}

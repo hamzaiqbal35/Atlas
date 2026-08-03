@@ -31,7 +31,7 @@ export default function Home() {
 
         {/* Section 4: Earth */}
         <section id="section-earth" className="h-screen w-full flex flex-col p-8 md:p-24 justify-between">
-          <div className="flex justify-end pointer-events-auto mt-auto">
+          <div className="hidden md:flex justify-end pointer-events-auto mt-auto">
             <div className="bg-background/80 backdrop-blur-md border border-border p-4 rounded-2xl flex flex-col gap-3 shadow-xl max-w-[340px]">
               <TiltedCard
                 imageSrc="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800"
@@ -59,7 +59,7 @@ export default function Home() {
 
         {/* Section 6: Mars */}
         <section id="section-mars" className="h-screen w-full flex items-center justify-end p-8 md:p-24 pointer-events-none">
-          <div className="pointer-events-auto">
+          <div className="hidden md:block pointer-events-auto">
              <TiltedCard
                 imageSrc="/perseverance_rover.png"
                 altText="Mars Rover"
