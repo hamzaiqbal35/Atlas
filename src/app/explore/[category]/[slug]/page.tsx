@@ -3,10 +3,12 @@ import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
-import { PlanetModel } from "@/components/mdx/PlanetModel";
+import { ChevronLeft, Globe } from "lucide-react";
+import { DynamicPlanetModel as PlanetModel } from "@/components/mdx/DynamicPlanetModel";
 import Image from "next/image";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/animations";
+import fs from "fs";
+import path from "path";
 
 export async function generateStaticParams() {
   const docs = getAllDocuments();
@@ -42,8 +44,21 @@ export default async function ExplorePage({
     notFound();
   }
 
-  const categoryMeta = getCategoryBySlug(doc.category) || { color: 'from-blue-500 to-indigo-400' };
+  const categoryMeta = getCategoryBySlug(doc.category) || { color: 'from-blue-500 to-indigo-400', icon: Globe, title: doc.category, description: '', slug: doc.category };
   const themeColor = BODY_COLORS[resolvedParams.slug.toLowerCase()] || categoryMeta.color;
+  const Icon = categoryMeta.icon || Globe;
+
+  const textureMap: Record<string, string> = {
+    luna: "moon_texture.png",
+    saturn: "saturn_texture.jpg",
+  };
+  const textureName = textureMap[resolvedParams.slug.toLowerCase()] || `${resolvedParams.slug}_texture.png`;
+  const texturePath = path.join(process.cwd(), 'public', textureName);
+  const has3DModel = fs.existsSync(texturePath);
+
+  const heroImageName = `${resolvedParams.slug}_image.png`;
+  const heroImagePath = path.join(process.cwd(), 'public', heroImageName);
+  const hasHeroImage = fs.existsSync(heroImagePath);
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-foreground relative z-10 selection:bg-white/20 pb-32">
@@ -63,7 +78,7 @@ export default async function ExplorePage({
         
         <FadeInStaggerContainer className="flex flex-col lg:flex-row gap-16 items-start">
           
-          {/* Left Column: Sticky 3D Model Display */}
+          {/* Left Column: Sticky 3D Model Display, 2D Hero Image, or Icon */}
           <FadeInStaggerItem className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24">
             <div className="relative group w-full aspect-square md:aspect-[4/3] lg:aspect-square">
               {/* Premium Glow effect behind the model container */}
@@ -71,7 +86,13 @@ export default async function ExplorePage({
               
               <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-background to-[#111] border border-white/[0.15] shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden flex items-center justify-center p-2 z-10">
                 <div className={`absolute inset-0 opacity-20 bg-gradient-to-br ${themeColor}`} />
-                <PlanetModel body={resolvedParams.slug} className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] relative z-10" />
+                {has3DModel ? (
+                  <PlanetModel body={resolvedParams.slug} className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] relative z-10" />
+                ) : hasHeroImage ? (
+                  <Image src={`/${heroImageName}`} alt={doc.frontmatter.title} fill className="object-cover relative z-10 opacity-90 transition duration-700 hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" />
+                ) : (
+                  <Icon className="w-32 h-32 text-white relative z-10 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] opacity-80" />
+                )}
               </div>
             </div>
           </FadeInStaggerItem>

@@ -107,7 +107,7 @@ function SaturnRings({ radius = 2 }: { radius?: number }) {
 export function PlanetModel({ body, className = "" }: { body: string; className?: string }) {
   return (
     <div className={`w-full h-[400px] bg-background/50 border border-border/50 rounded-2xl overflow-hidden my-8 ${className}`}>
-      <Canvas camera={{ position: [0, 0, 6.5], fov: 45 }}>
+      <Canvas camera={{ position: [0, 0, 6.5], fov: 45 }} dpr={[1, 1.5]} gl={{ powerPreference: 'high-performance', antialias: false }}>
         <ambientLight intensity={body === 'sun' ? 2 : 0.4} />
         <directionalLight position={[5, 3, 5]} intensity={1.5} />
         <Suspense fallback={null}>

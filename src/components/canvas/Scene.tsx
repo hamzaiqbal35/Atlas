@@ -1,7 +1,8 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { PerformanceMonitor, Preload } from "@react-three/drei";
+import { Suspense, useState } from "react";
 import { Earth } from "./Earth";
 import { Moon } from "./Moon";
 import { Mars } from "./Mars";
@@ -20,10 +21,12 @@ import { useTheme } from "next-themes";
 
 export function Scene() {
   const { theme } = useTheme();
+  const [dpr, setDpr] = useState(1); // Start at 1 for fast initial load
   
   return (
     <div className="fixed inset-0 z-[-1] bg-background">
-      <Canvas dpr={[1, 1.5]} gl={{ powerPreference: 'high-performance', antialias: true, alpha: false }}>
+      <Canvas dpr={dpr} gl={{ powerPreference: 'high-performance', antialias: false, alpha: false }}>
+        <PerformanceMonitor onIncline={() => setDpr(1.5)} onDecline={() => setDpr(1)} />
         <CameraSystem />
         
         {/* Lighting */}
@@ -47,6 +50,7 @@ export function Scene() {
           <Neptune />
           <Pluto />
         </Suspense>
+        <Preload all />
       </Canvas>
     </div>
   );

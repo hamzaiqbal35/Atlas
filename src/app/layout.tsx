@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { Scene } from "@/components/canvas/Scene";
+import { DynamicScene as Scene } from "@/components/canvas/DynamicScene";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
 
