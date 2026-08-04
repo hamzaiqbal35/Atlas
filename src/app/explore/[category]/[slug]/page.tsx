@@ -16,6 +16,20 @@ export async function generateStaticParams() {
   }));
 }
 
+const BODY_COLORS: Record<string, string> = {
+  sun: 'from-orange-500 to-amber-600',
+  mercury: 'from-neutral-400 to-stone-500',
+  venus: 'from-yellow-400 to-amber-500',
+  earth: 'from-blue-500 to-indigo-500',
+  moon: 'from-slate-300 to-gray-500',
+  mars: 'from-red-500 to-rose-600',
+  jupiter: 'from-orange-400 to-amber-700',
+  saturn: 'from-yellow-300 to-yellow-600',
+  uranus: 'from-cyan-300 to-teal-500',
+  neptune: 'from-blue-600 to-indigo-700',
+  pluto: 'from-stone-400 to-stone-600',
+};
+
 export default async function ExplorePage({
   params,
 }: {
@@ -29,12 +43,13 @@ export default async function ExplorePage({
   }
 
   const categoryMeta = getCategoryBySlug(doc.category) || { color: 'from-blue-500 to-indigo-400' };
+  const themeColor = BODY_COLORS[resolvedParams.slug.toLowerCase()] || categoryMeta.color;
 
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-foreground relative z-10 selection:bg-white/20 pb-32">
       {/* Ambient Radial Background Glow */}
       <div className="fixed inset-0 pointer-events-none opacity-20">
-        <div className={`absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] ${categoryMeta.color} via-background to-transparent`} />
+        <div className={`absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] ${themeColor} via-background to-transparent`} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
@@ -52,10 +67,10 @@ export default async function ExplorePage({
           <FadeInStaggerItem className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24">
             <div className="relative group w-full aspect-square md:aspect-[4/3] lg:aspect-square">
               {/* Premium Glow effect behind the model container */}
-              <div className={`absolute -inset-4 bg-gradient-to-r ${categoryMeta.color} rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-60 transition duration-1000 pointer-events-none`}></div>
+              <div className={`absolute -inset-4 bg-gradient-to-r ${themeColor} rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-60 transition duration-1000 pointer-events-none`}></div>
               
               <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-background to-[#111] border border-white/[0.15] shadow-[0_0_40px_rgba(0,0,0,0.5)] overflow-hidden flex items-center justify-center p-2 z-10">
-                <div className={`absolute inset-0 opacity-20 bg-gradient-to-br ${categoryMeta.color}`} />
+                <div className={`absolute inset-0 opacity-20 bg-gradient-to-br ${themeColor}`} />
                 <PlanetModel body={resolvedParams.slug} className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] relative z-10" />
               </div>
             </div>
@@ -66,7 +81,7 @@ export default async function ExplorePage({
             <FadeInStaggerItem>
               <header className="mb-14">
                 <div className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-white/50 mb-4 flex items-center gap-3">
-                  <span className={`w-8 h-[1px] bg-gradient-to-r ${categoryMeta.color}`}></span>
+                  <span className={`w-8 h-[1px] bg-gradient-to-r ${themeColor}`}></span>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">{doc.category}</span>
                 </div>
                 <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-white/70 leading-tight">
@@ -87,7 +102,7 @@ export default async function ExplorePage({
                   if (!doc.frontmatter[key]) return null;
                   return (
                     <div key={key} className="bg-gradient-to-b from-[#151515] to-[#0A0A0A] border border-white/[0.08] rounded-2xl p-5 shadow-lg hover:border-white/[0.25] transition-colors duration-300 group relative overflow-hidden">
-                      <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br ${categoryMeta.color} transition-opacity duration-300`} />
+                      <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br ${themeColor} transition-opacity duration-300`} />
                       <div className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-muted-foreground mb-2 group-hover:text-white transition-colors relative z-10">
                         {key}
                       </div>
