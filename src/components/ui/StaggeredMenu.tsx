@@ -3,6 +3,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import './StaggeredMenu.css';
 
@@ -152,11 +153,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const tl = gsap.timeline({ paused: true });
 
     layerStates.forEach((ls, i) => {
-      tl.fromTo(ls.el, { xPercent: ls.start }, { xPercent: 0, duration: 0.5, ease: 'power4.out' }, i * 0.07);
+      tl.fromTo(ls.el, { xPercent: ls.start }, { xPercent: 0, duration: 0.35, ease: 'power4.out' }, i * 0.04);
     });
-    const lastTime = layerStates.length ? (layerStates.length - 1) * 0.07 : 0;
-    const panelInsertTime = lastTime + (layerStates.length ? 0.08 : 0);
-    const panelDuration = 0.65;
+    const lastTime = layerStates.length ? (layerStates.length - 1) * 0.04 : 0;
+    const panelInsertTime = lastTime + (layerStates.length ? 0.05 : 0);
+    const panelDuration = 0.45;
     tl.fromTo(
       panel,
       { xPercent: panelStart },
@@ -172,9 +173,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         {
           yPercent: 0,
           rotate: 0,
-          duration: 1,
+          duration: 0.6,
           ease: 'power4.out',
-          stagger: { each: 0.1, from: 'start' } as any
+          stagger: { each: 0.05, from: 'start' } as any
         },
         itemsStart
       );
@@ -182,12 +183,12 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         tl.to(
           numberEls,
           {
-            duration: 0.6,
+            duration: 0.4,
             ease: 'power2.out',
             '--sm-num-opacity': 1,
-            stagger: { each: 0.08, from: 'start' } as any
+            stagger: { each: 0.04, from: 'start' } as any
           },
-          itemsStart + 0.1
+          itemsStart + 0.05
         );
       }
     }
@@ -199,7 +200,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           socialTitle,
           {
             opacity: 1,
-            duration: 0.5,
+            duration: 0.35,
             ease: 'power2.out'
           },
           socialsStart
@@ -211,9 +212,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           {
             y: 0,
             opacity: 1,
-            duration: 0.55,
+            duration: 0.4,
             ease: 'power3.out',
-            stagger: { each: 0.08, from: 'start' } as any,
+            stagger: { each: 0.05, from: 'start' } as any,
             onComplete: () => {
               gsap.set(socialLinks, { clearProps: 'opacity' });
             }
@@ -287,9 +288,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (!icon) return;
     spinTweenRef.current?.kill();
     if (opening) {
-      spinTweenRef.current = gsap.to(icon, { rotate: 225, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
+      spinTweenRef.current = gsap.to(icon, { rotate: 225, duration: 0.4, ease: 'power4.out', overwrite: 'auto' });
     } else {
-      spinTweenRef.current = gsap.to(icon, { rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
+      spinTweenRef.current = gsap.to(icon, { rotate: 0, duration: 0.25, ease: 'power3.inOut', overwrite: 'auto' });
     }
   }, []);
 
@@ -347,7 +348,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     const finalShift = ((lineCount - 1) / lineCount) * 100;
     textCycleAnimRef.current = gsap.to(inner, {
       yPercent: -finalShift,
-      duration: 0.5 + lineCount * 0.07,
+      duration: 0.3 + lineCount * 0.04,
       ease: 'power4.out'
     });
   }, []);
@@ -431,7 +432,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         <div className="sm-logo" aria-label="Logo">
           {logoUrl && (
             <Link href="/" style={{ pointerEvents: 'auto' }}>
-              <img src={logoUrl} alt="Atlas Logo" className="sm-logo-img" />
+              <Image src={logoUrl} alt="Atlas Logo" className="sm-logo-img" width={160} height={80} priority />
             </Link>
           )}
         </div>

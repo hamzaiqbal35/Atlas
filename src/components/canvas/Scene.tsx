@@ -23,7 +23,7 @@ export function Scene() {
   
   return (
     <div className="fixed inset-0 z-[-1] bg-background">
-      <Canvas>
+      <Canvas dpr={[1, 1.5]} gl={{ powerPreference: 'high-performance', antialias: true, alpha: false }}>
         <CameraSystem />
         
         {/* Lighting */}

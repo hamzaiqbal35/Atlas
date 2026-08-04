@@ -144,6 +144,7 @@ const ParticleCard = ({
     if (disableAnimations || !cardRef.current) return;
 
     const element = cardRef.current;
+    const innerContainer = element.querySelector('.magic-bento-card-inner') || element;
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
@@ -153,7 +154,7 @@ const ParticleCard = ({
         gsap.to(element, {
           rotateX: 5,
           rotateY: 5,
-          duration: 0.3,
+          duration: 0.15,
           ease: 'power2.out',
           transformPerspective: 1000
         });
@@ -168,7 +169,7 @@ const ParticleCard = ({
         gsap.to(element, {
           rotateX: 0,
           rotateY: 0,
-          duration: 0.3,
+          duration: 0.15,
           ease: 'power2.out'
         });
       }
@@ -177,7 +178,7 @@ const ParticleCard = ({
         gsap.to(element, {
           x: 0,
           y: 0,
-          duration: 0.3,
+          duration: 0.15,
           ease: 'power2.out'
         });
       }
@@ -256,7 +257,7 @@ const ParticleCard = ({
         {
           scale: 1,
           opacity: 0,
-          duration: 0.8,
+          duration: 0.4,
           ease: 'power2.out',
           onComplete: () => ripple.remove()
         }
@@ -389,7 +390,7 @@ const GlobalSpotlight = ({
 
       gsap.to(spotlightRef.current, {
         opacity: targetOpacity,
-        duration: targetOpacity > 0 ? 0.2 : 0.5,
+        duration: targetOpacity > 0 ? 0.1 : 0.2,
         ease: 'power2.out'
       });
     };
@@ -637,7 +638,7 @@ const MagicBento = ({
                     {
                       scale: 1,
                       opacity: 0,
-                      duration: 0.8,
+                      duration: 0.4,
                       ease: 'power2.out',
                       onComplete: () => ripple.remove()
                     }

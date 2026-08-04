@@ -54,9 +54,9 @@
   position: relative;
   cursor: pointer;
   transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    box-shadow 0.3s ease;
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
   box-shadow: 0 0 0.5px 1.5px transparent;
   color: white;
 }
@@ -78,7 +78,7 @@
   background: white;
   opacity: 0;
   transform: scale(0);
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
   z-index: -1;
 }
 
@@ -107,7 +107,7 @@
 
 .gooey-nav-container .effect.text {
   color: white;
-  transition: color 0.3s ease;
+  transition: color 0.15s ease;
 }
 
 .gooey-nav-container .effect.text.active {
@@ -130,7 +130,7 @@
 }
 
 .gooey-nav-container .effect.active::after {
-  animation: pill 0.3s ease both;
+  animation: pill 0.15s ease both;
 }
 
 @keyframes pill {

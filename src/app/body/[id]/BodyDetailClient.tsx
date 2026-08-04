@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Thermometer, Weight, Activity, Orbit, Ruler, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LineSidebar from "@/components/ui/LineSidebar";
@@ -33,10 +34,12 @@ const renderSectionContent = (content?: SectionContent, reverse = false) => {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8 }}
         >
-          <img 
+          <Image 
             src={content.imageUrl} 
             alt={content.imageAlt || "Space Image"} 
-            className="w-full h-full object-cover transition-transform duration-[20s] hover:scale-110"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-[20000ms] hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>

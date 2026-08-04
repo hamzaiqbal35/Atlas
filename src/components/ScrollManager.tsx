@@ -30,7 +30,7 @@ export function ScrollManager() {
         trigger: "#main-scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 1.5, // Smooth scrubbing
+        scrub: 2.5, // Ultra smooth scrubbing
       },
       onUpdate: function () {
         setCameraPosition([proxy.x, proxy.y, proxy.z]);

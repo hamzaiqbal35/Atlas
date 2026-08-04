@@ -19,24 +19,21 @@ export function CameraSystem() {
   useFrame((state, delta) => {
     if (isInteracting) return; // Let OrbitControls take over
 
-    // Smoothly interpolate camera position
+    // Instantly track the GSAP proxy which is already smoothly interpolated
     if (position) {
       const targetPos = Array.isArray(position) 
         ? new THREE.Vector3().fromArray(position)
         : (position as THREE.Vector3);
-      if (camera.position.distanceTo(targetPos) > 0.05) {
-        camera.position.lerp(targetPos, delta * 2);
-      }
+      camera.position.copy(targetPos);
     }
     
-    // Smoothly interpolate lookAt target
+    // Instantly track the GSAP target
     if (target && controlsRef.current) {
       const targetVec = Array.isArray(target)
         ? new THREE.Vector3().fromArray(target)
         : (target as THREE.Vector3);
-      if (controlsRef.current.target.distanceTo(targetVec) > 0.05) {
-        controlsRef.current.target.lerp(targetVec, delta * 2);
-      }
+      controlsRef.current.target.copy(targetVec);
+      controlsRef.current.update();
     }
   });
 

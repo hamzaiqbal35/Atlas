@@ -42,7 +42,7 @@
 
 .sm-logo-img {
   display: block;
-  height: 90px;
+  height: clamp(70px, 8vw, 100px);
   width: auto;
   object-fit: contain;
 }
