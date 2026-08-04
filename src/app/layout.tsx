@@ -19,7 +19,6 @@ import { CustomCursor } from "@/components/ui/CustomCursor";
 
 import { OmniSearch } from "@/components/OmniSearch";
 import { GlobalNavigation } from "@/components/ui/GlobalNavigation";
-import { TopNav } from "@/components/ui/TopNav";
 
 export const metadata: Metadata = {
   title: "Atlas | Interactive Universe",

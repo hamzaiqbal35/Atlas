@@ -5,7 +5,6 @@ import { MiniMap } from "@/components/ui/MiniMap";
 import TiltedCard from "@/components/ui/TiltedCard";
 import Folder from "@/components/ui/Folder";
 import GalaxyBackground from "@/components/ui/GalaxyBackground";
-import GooeyNav from "@/components/ui/GooeyNav";
 import { HeroText } from "@/components/ui/HeroText";
 export default function Home() {
   return (

@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { PlanetModel } from "@/components/mdx/PlanetModel";
+import Image from "next/image";
 
 export async function generateStaticParams() {
   const docs = getAllDocuments();
@@ -74,7 +75,23 @@ export default async function ExplorePage({
 
         {/* MDX Content */}
         <article className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80">
-          <MDXRemote source={doc.content} components={{ PlanetModel }} />
+          <MDXRemote 
+            source={doc.content} 
+            components={{ 
+              PlanetModel,
+              img: (props: any) => (
+                <span className="relative block w-full aspect-video my-8 rounded-xl overflow-hidden border border-border/50 bg-black/50">
+                  <Image 
+                    src={props.src} 
+                    alt={props.alt || ''} 
+                    fill 
+                    className="object-contain" 
+                    sizes="(max-width: 800px) 100vw, 800px"
+                  />
+                </span>
+              )
+            }} 
+          />
         </article>
       </div>
     </div>
