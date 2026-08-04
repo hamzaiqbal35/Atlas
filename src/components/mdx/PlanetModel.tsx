@@ -19,7 +19,8 @@ function PlanetSphere({ body, radius = 2 }: { body: string; radius?: number }) {
     saturn: "/saturn_texture.png",
     uranus: "/uranus_texture.png",
     neptune: "/neptune_texture.png",
-    pluto: "/pluto_texture.png"
+    pluto: "/pluto_texture.png",
+    luna: "/moon_texture.png"
   };
 
   const textureUrl = textureMap[body.toLowerCase()] || "/earth_texture.png";
@@ -39,6 +40,28 @@ function PlanetSphere({ body, radius = 2 }: { body: string; radius?: number }) {
       ) : (
         <meshStandardMaterial map={colorMap} metalness={0.1} roughness={0.8} />
       )}
+      {body === 'saturn' && <SaturnRings radius={radius} />}
+    </mesh>
+  );
+}
+
+function SaturnRings({ radius = 2 }: { radius?: number }) {
+  const ringMap = useTexture("/saturn_ring_texture.png");
+  
+  // Apply texture settings to make it render nicely on a flat ring
+  ringMap.rotation = Math.PI / 2;
+  
+  return (
+    <mesh rotation={[Math.PI / 2 + 0.3, 0, 0]}>
+      <ringGeometry args={[radius * 1.4, radius * 2.4, 64]} />
+      <meshStandardMaterial 
+        map={ringMap} 
+        transparent={true} 
+        side={THREE.DoubleSide} 
+        opacity={0.8}
+        roughness={0.4}
+        metalness={0.1}
+      />
     </mesh>
   );
 }

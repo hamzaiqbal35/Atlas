@@ -120,7 +120,7 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
       
       {/* Sidebar Navigation */}
       <div className="hidden lg:flex fixed top-0 left-0 bottom-0 w-64 flex-col justify-center border-r border-border/10 bg-background/80 backdrop-blur-xl z-40">
-        <div className="absolute top-8 left-6">
+        <div className="absolute top-28 left-6">
           <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium">
             <ArrowLeft className="w-4 h-4" /> Back to Atlas
           </Link>

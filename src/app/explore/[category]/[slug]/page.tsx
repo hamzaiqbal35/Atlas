@@ -35,11 +35,11 @@ export default async function ExplorePage({
 
       <div className="max-w-4xl mx-auto px-6 py-24 relative z-10">
         <Link 
-          href="/"
+          href={`/explore/${doc.category.toLowerCase()}`}
           className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          Back to Atlas
+          Back to {doc.category}
         </Link>
         
         <header className="mb-12">
