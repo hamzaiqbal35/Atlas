@@ -26,7 +26,7 @@ export function Moon() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.02;
+      meshRef.current.rotation.y += delta * 0.01; // Exaggerated for visibility
     }
   });
 

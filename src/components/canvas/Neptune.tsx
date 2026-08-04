@@ -25,7 +25,7 @@ export function Neptune() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.06;
+      meshRef.current.rotation.y += delta * 0.075; // 16.1 hours
     }
   });
 

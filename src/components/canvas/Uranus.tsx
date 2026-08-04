@@ -25,8 +25,8 @@ export function Uranus() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      // Uranus rotates on its side
-      meshRef.current.rotation.x += delta * 0.05; 
+      // Uranus rotates on its side, retrograde
+      meshRef.current.rotation.y += delta * -0.15; 
     }
   });
 

@@ -107,7 +107,7 @@ export function Saturn() {
   
   useFrame((state, delta) => {
     if (planetRef.current) {
-      planetRef.current.rotation.y += delta * 0.08;
+      planetRef.current.rotation.y += delta * 0.112; // 10.7 hours
     }
     if (moonRef.current) {
       const t = state.clock.getElapsedTime();

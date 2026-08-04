@@ -48,7 +48,7 @@ export function Jupiter() {
 
   useFrame((state, delta) => {
     if (planetRef.current) {
-      planetRef.current.rotation.y += delta * 0.1; // Fast rotation
+      planetRef.current.rotation.y += delta * 0.121; // 9.9 hours
       uniforms.time.value += delta;
     }
     if (meshRef.current) {

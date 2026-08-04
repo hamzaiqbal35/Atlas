@@ -26,7 +26,7 @@ export function Mars() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.04;
+      meshRef.current.rotation.y += delta * 0.048; // 24.6 hours
     }
   });
 

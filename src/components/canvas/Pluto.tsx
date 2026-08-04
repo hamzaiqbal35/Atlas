@@ -25,7 +25,7 @@ export function Pluto() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += delta * 0.01;
+      meshRef.current.rotation.y += delta * -0.01; // Retrograde, exaggerated for visibility
     }
   });
 

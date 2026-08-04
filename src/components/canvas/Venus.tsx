@@ -25,7 +25,7 @@ export function Venus() {
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y -= delta * 0.005; // Retrograde rotation
+      meshRef.current.rotation.y += delta * -0.05; // Retrograde rotation
     }
   });
 
