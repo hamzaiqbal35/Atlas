@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   z-index: 100;
   overflow: hidden;
 }
@@ -147,6 +147,7 @@
   z-index: 110;
   pointer-events: auto;
   opacity: 0;
+  will-change: transform;
 }
 
 [data-position='left'] .staggered-menu-panel {
@@ -178,6 +179,7 @@
   width: 100%;
   transform: translateX(0);
   opacity: 0;
+  will-change: transform;
 }
 
 .sm-panel-inner {
@@ -187,6 +189,8 @@
   gap: 1.25rem;
   padding: 0 2em 2em 2em;
   overflow-y: auto;
+  min-height: 0;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sm-socials {
@@ -347,10 +351,18 @@
 }
 
 @media (max-width: 1024px) {
-  .staggered-menu-panel {
-    width: 100%;
-    left: 0;
+  .staggered-menu-panel,
+  .sm-prelayers {
+    width: 85vw;
+    max-width: 420px;
+    left: auto;
     right: 0;
+  }
+  
+  [data-position='left'] .staggered-menu-panel,
+  [data-position='left'] .sm-prelayers {
+    right: auto;
+    left: 0;
   }
 
   .staggered-menu-wrapper[data-open] .sm-logo-img {
@@ -359,10 +371,18 @@
 }
 
 @media (max-width: 640px) {
-  .staggered-menu-panel {
-    width: 100%;
-    left: 0;
+  .staggered-menu-panel,
+  .sm-prelayers {
+    width: 85vw;
+    max-width: 380px;
+    left: auto;
     right: 0;
+  }
+  
+  [data-position='left'] .staggered-menu-panel,
+  [data-position='left'] .sm-prelayers {
+    right: auto;
+    left: 0;
   }
 
   .staggered-menu-wrapper[data-open] .sm-logo-img {

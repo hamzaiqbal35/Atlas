@@ -38,11 +38,17 @@
   font-weight: 300;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
 
   --glow-x: 50%;
   --glow-y: 50%;
   --glow-intensity: 0;
   --glow-radius: 200px;
+}
+
+.magic-bento-card img.object-cover {
+  will-change: transform;
 }
 
 .magic-bento-card:hover {

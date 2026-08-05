@@ -11,6 +11,7 @@ export interface StaggeredMenuItem {
   label: string;
   link: string;
   ariaLabel?: string;
+  exact?: boolean;
   children?: StaggeredMenuItem[];
 }
 
@@ -466,7 +467,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           <ul className="sm-panel-list" role="list" data-numbering={displayItemNumbering || undefined}>
             {items && items.length ? (
               items.map((it, idx) => {
-                const isParentActive = it.link === '/' ? pathname === '/' : pathname.startsWith(it.link);
+                const isParentActive = it.exact || it.link === '/' ? pathname === it.link : pathname.startsWith(it.link);
                 return (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
                   <Link 

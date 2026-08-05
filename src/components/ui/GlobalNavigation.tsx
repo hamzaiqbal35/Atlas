@@ -5,8 +5,8 @@ import StaggeredMenu from "./StaggeredMenu";
 
 export function GlobalNavigation() {
   const menuItems = [
-    { label: "Home", link: "/" },
-    { label: "The Atlas", link: "/explore" },
+    { label: "Home", link: "/", exact: true },
+    { label: "The Atlas", link: "/explore", exact: true },
     { label: "Search", link: "#", ariaLabel: "Press Ctrl+K to search" }, // Or handle search differently
     ...CATEGORIES.map((cat) => ({
       label: cat.title,

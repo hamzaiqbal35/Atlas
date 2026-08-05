@@ -9,6 +9,8 @@ import Image from "next/image";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/animations";
 import fs from "fs";
 import path from "path";
+import { ResearchPapers } from "@/components/ResearchPapers";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const docs = getAllDocuments();
@@ -119,13 +121,15 @@ export default async function ExplorePage({
             <FadeInStaggerItem>
               {/* Bento-box Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16">
-                {['mass', 'gravity', 'radius', 'temperature'].map((key) => {
-                  if (!doc.frontmatter[key]) return null;
+                {Object.keys(doc.frontmatter || {})
+                  .filter((key) => !['title', 'subtitle', 'category'].includes(key) && doc.frontmatter[key] && doc.frontmatter[key] !== 'N/A' && doc.frontmatter[key] !== 'Unknown')
+                  .slice(0, 4)
+                  .map((key) => {
                   return (
                     <div key={key} className="bg-gradient-to-b from-[#151515] to-[#0A0A0A] border border-white/[0.08] rounded-2xl p-5 shadow-lg hover:border-white/[0.25] transition-colors duration-300 group relative overflow-hidden">
                       <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 bg-gradient-to-br ${themeColor} transition-opacity duration-300`} />
                       <div className="text-[10px] font-mono font-medium uppercase tracking-[0.2em] text-muted-foreground mb-2 group-hover:text-white transition-colors relative z-10">
-                        {key}
+                        {key.replace(/_/g, ' ')}
                       </div>
                       <div className="text-lg md:text-xl font-semibold tracking-tight text-white relative z-10">
                         {doc.frontmatter[key]}
@@ -158,6 +162,10 @@ export default async function ExplorePage({
                   }} 
                 />
               </article>
+              
+              <Suspense fallback={<div className="mt-20 pt-16 border-t border-white/[0.05] animate-pulse h-40 bg-white/[0.02] rounded-2xl"></div>}>
+                <ResearchPapers query={doc.frontmatter.title} />
+              </Suspense>
             </FadeInStaggerItem>
           </div>
 
