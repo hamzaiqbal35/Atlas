@@ -150,18 +150,18 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
           `
         }} />
 
-        {/* Mobile Nav */}
-        <nav className="lg:hidden p-6 absolute top-0 left-0 z-50">
-          <Link href="/">
-            <Button variant="ghost" className="gap-2 -ml-4 bg-background/50 backdrop-blur-md">
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </Button>
-          </Link>
-        </nav>
-
         {/* Hero / Overview Section */}
-        <section id="overview" className="min-h-screen flex flex-col justify-center px-6 py-16 md:p-24 relative">
+        <section id="overview" className="min-h-screen flex flex-col justify-start lg:justify-center px-6 pt-28 pb-16 md:p-24 relative">
+          {/* Mobile Nav */}
+          <nav className="lg:hidden mb-8 z-50">
+            <Link href="/">
+              <Button variant="ghost" className="gap-2 -ml-4 bg-background/50 backdrop-blur-md">
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </Button>
+            </Link>
+          </nav>
+
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
