@@ -11,71 +11,56 @@ export interface ArxivPaper {
 
 export async function getLatestPapers(query: string, limit: number = 5): Promise<ArxivPaper[]> {
   try {
-    const encodedQuery = encodeURIComponent(`all:"${query}"`);
-    const url = `https://export.arxiv.org/api/query?search_query=${encodedQuery}&start=0&max_results=${limit}&sortBy=submittedDate&sortOrder=descending`;
+    const encodedQuery = encodeURIComponent(query);
+    // Use CrossRef API as it doesn't block cloud IPs and returns JSON directly
+    const url = `https://api.crossref.org/works?query=${encodedQuery}&select=title,author,abstract,URL,created&rows=${limit}&sort=created`;
     
     const response = await fetch(url, { 
       next: { revalidate: 3600 },
       headers: {
-        'User-Agent': 'Atlas-Interactive-Universe/1.0'
+        'User-Agent': 'Atlas-Interactive-Universe/1.0 (mailto:hello@example.com)'
       }
-    }); // Cache for 1 hour
+    });
     
     if (!response.ok) {
-      console.error(`Failed to fetch from arXiv API: ${response.status} ${response.statusText}`);
-      console.error(`URL: ${url}`);
+      console.error(`Failed to fetch from CrossRef API: ${response.status} ${response.statusText}`);
       return [];
     }
 
-    const xmlData = await response.text();
+    const data = await response.json();
+    const items = data.message?.items;
     
-    const parser = new XMLParser({
-      ignoreAttributes: false,
-      attributeNamePrefix: "@_"
-    });
-    const parsedData = parser.parse(xmlData);
-
-    const entries = parsedData.feed?.entry;
-    
-    if (!entries) {
+    if (!items || !Array.isArray(items)) {
       return [];
     }
 
-    // Ensure entries is always an array (if only 1 result, fast-xml-parser might return an object)
-    const entryArray = Array.isArray(entries) ? entries : [entries];
-
-    return entryArray.map((entry: any) => {
-      // Authors can be a single object or an array
+    return items.map((item: any) => {
+      // Authors can be missing or in a different format
       let authorsList: string[] = [];
-      if (entry.author) {
-        if (Array.isArray(entry.author)) {
-          authorsList = entry.author.map((a: any) => a.name);
-        } else {
-          authorsList = [entry.author.name];
-        }
+      if (item.author && Array.isArray(item.author)) {
+        authorsList = item.author.map((a: any) => `${a.given || ''} ${a.family || ''}`.trim()).filter(Boolean);
       }
+      
+      // Clean up abstract (often contains HTML tags like <p> or <jats:p>)
+      let abstract = item.abstract || '';
+      abstract = abstract.replace(/<[^>]*>?/gm, '').trim();
+      if (!abstract) abstract = 'No abstract available.';
 
-      // Find the PDF link
-      let pdfUrl = '';
-      if (entry.link) {
-        const links = Array.isArray(entry.link) ? entry.link : [entry.link];
-        const pdfLink = links.find((l: any) => l['@_title'] === 'pdf' || l['@_type'] === 'application/pdf');
-        pdfUrl = pdfLink ? pdfLink['@_href'] : entry.id;
-      } else {
-        pdfUrl = entry.id;
-      }
+      const title = item.title && item.title[0] ? item.title[0] : 'Untitled';
+      const url = item.URL || '';
+      const published = item.created ? item.created['date-time'] : new Date().toISOString();
 
       return {
-        id: entry.id,
-        title: entry.title.replace(/\n/g, ' ').trim(),
-        summary: entry.summary.replace(/\n/g, ' ').trim(),
-        published: entry.published,
-        authors: authorsList,
-        pdfUrl: pdfUrl
+        id: url || title,
+        title: title,
+        summary: abstract,
+        published: published,
+        authors: authorsList.length > 0 ? authorsList : ['Unknown Author'],
+        pdfUrl: url
       };
-    });
+    }).filter((p: ArxivPaper) => p.pdfUrl); // Only return papers with a URL
   } catch (error) {
-    console.error('Error fetching arXiv data:', error);
+    console.error('Error fetching CrossRef data:', error);
     return [];
   }
 }
