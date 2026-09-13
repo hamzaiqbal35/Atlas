@@ -113,16 +113,15 @@ export const CATEGORIES: Category[] = [
     slug: 'atoms-chemistry',
     title: 'Atoms & Chemistry',
     description: 'Explore Atoms & Chemistry.',
-    icon: Globe, // Default
+    icon: Atom,
     color: 'from-blue-500 to-indigo-400',
     subcategories: [
-      { slug: 'hydrogen', title: 'Hydrogen' },
-      { slug: 'helium', title: 'Helium' },
-      { slug: 'lithium', title: 'Lithium' },
-      { slug: 'all-118-elements', title: 'All 118 elements' },
+      { slug: 'atom', title: 'The Atom' },
+      { slug: 'chemical-elements', title: 'Chemical Elements' },
+      { slug: 'periodic-table', title: 'Periodic Table' },
+      { slug: 'chemical-bonds', title: 'Chemical Bonds' },
       { slug: 'molecules', title: 'Molecules' },
-      { slug: 'interstellar-chemistry', title: 'Interstellar Chemistry' },
-      { slug: 'organic-molecules', title: 'Organic Molecules' },
+      { slug: 'chemical-reactions', title: 'Chemical Reactions' },
     ]
   },
   {

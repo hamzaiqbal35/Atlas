@@ -2,6 +2,8 @@ import { getDocumentBySlug, getAllDocuments } from "@/lib/mdx";
 import { getCategoryBySlug } from "@/lib/categories";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import Link from "next/link";
 import { ChevronLeft, Globe } from "lucide-react";
 import { DynamicPlanetModel as PlanetModel } from "@/components/mdx/DynamicPlanetModel";
@@ -11,6 +13,7 @@ import fs from "fs";
 import path from "path";
 import { ResearchPapers } from "@/components/ResearchPapers";
 import { Suspense } from "react";
+import PeriodicTable from "@/components/ui/PeriodicTable";
 
 export async function generateStaticParams() {
   const docs = getAllDocuments();
@@ -81,7 +84,8 @@ export default async function ExplorePage({
         <FadeInStaggerContainer className="flex flex-col lg:flex-row gap-16 items-start">
           
           {/* Left Column: Sticky 3D Model Display, 2D Hero Image, or Icon */}
-          <FadeInStaggerItem className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24">
+          {!doc.frontmatter.hide_hero && (
+            <FadeInStaggerItem className="w-full lg:w-5/12 flex-shrink-0 lg:sticky lg:top-24">
             <div className="relative group w-full aspect-square md:aspect-[4/3] lg:aspect-square">
               {/* Premium Glow effect behind the model container */}
               <div className={`absolute -inset-4 bg-gradient-to-r ${themeColor} rounded-[3rem] blur-2xl opacity-20 group-hover:opacity-60 transition duration-1000 pointer-events-none`}></div>
@@ -91,23 +95,24 @@ export default async function ExplorePage({
                 {has3DModel ? (
                   <PlanetModel body={resolvedParams.slug} className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,255,255,0.2)] relative z-10" />
                 ) : hasHeroImage ? (
-                  <Image src={`/${heroImageName}`} alt={doc.frontmatter.title} fill className="object-cover relative z-10 opacity-90 transition duration-700 hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" />
+                  <Image src={`/${heroImageName}`} alt={doc.frontmatter.title} fill className="object-cover relative z-10 opacity-90 transition duration-700 hover:scale-105" sizes="(max-width: 1024px) 100vw, 50vw" priority unoptimized />
                 ) : (
                   <Icon className="w-32 h-32 text-white relative z-10 drop-shadow-[0_0_25px_rgba(255,255,255,0.4)] opacity-80" />
                 )}
               </div>
             </div>
-          </FadeInStaggerItem>
+            </FadeInStaggerItem>
+          )}
 
           {/* Right Column: Scrollable Content */}
-          <div className="w-full lg:w-7/12 pt-4">
+          <div className={`w-full pt-4 ${doc.frontmatter.hide_hero ? '' : 'lg:w-7/12'} min-w-0`}>
             <FadeInStaggerItem>
               <header className="mb-14">
                 <div className="text-xs font-mono font-semibold uppercase tracking-[0.25em] text-white/50 mb-4 flex items-center gap-3">
                   <span className={`w-8 h-[1px] bg-gradient-to-r ${themeColor}`}></span>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60">{doc.category}</span>
                 </div>
-                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-white/70 leading-tight">
+                <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-white/70 leading-tight pb-2">
                   {doc.frontmatter.title}
                 </h1>
                 {doc.frontmatter.subtitle && (
@@ -122,7 +127,7 @@ export default async function ExplorePage({
               {/* Bento-box Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-16">
                 {Object.keys(doc.frontmatter || {})
-                  .filter((key) => !['title', 'subtitle', 'category'].includes(key) && doc.frontmatter[key] && doc.frontmatter[key] !== 'N/A' && doc.frontmatter[key] !== 'Unknown')
+                  .filter((key) => !['title', 'subtitle', 'category', 'description', 'hide_hero'].includes(key) && doc.frontmatter[key] && doc.frontmatter[key] !== 'N/A' && doc.frontmatter[key] !== 'Unknown')
                   .slice(0, 4)
                   .map((key) => {
                   return (
@@ -143,11 +148,19 @@ export default async function ExplorePage({
             <FadeInStaggerItem>
               {/* Premium Styled MDX Content */}
               <article className="prose prose-invert prose-lg max-w-none">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
                 <MDXRemote 
                   source={doc.content} 
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkMath],
+                      rehypePlugins: [rehypeKatex],
+                    }
+                  }}
                   components={{ 
                     // We render null here because we manually mounted it in the left column!
                     PlanetModel: () => null,
+                    PeriodicTable: (props: any) => <PeriodicTable {...props} />,
                     img: (props: any) => (
                       <span className="relative block w-full aspect-video my-12 rounded-[2rem] overflow-hidden border border-white/[0.1] bg-[#111] shadow-2xl group">
                         <Image 

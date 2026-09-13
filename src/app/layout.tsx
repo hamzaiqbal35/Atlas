@@ -12,7 +12,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-import { ThemeProvider } from "@/components/theme-provider";
 import { DynamicScene as Scene } from "@/components/canvas/DynamicScene";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { CustomCursor } from "@/components/ui/CustomCursor";
@@ -33,26 +32,19 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans bg-transparent">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          forcedTheme="dark"
-          disableTransitionOnChange
-        >
-          <CustomCursor />
-          <OmniSearch />
-          <GlobalNavigation />
-          <SmoothScroll>
-            <Scene />
-            <div className="relative z-10 min-h-full">
-              {children}
-            </div>
-          </SmoothScroll>
-        </ThemeProvider>
+        <CustomCursor />
+        <OmniSearch />
+        <GlobalNavigation />
+        <SmoothScroll>
+          <Scene />
+          <div className="relative z-10 min-h-full">
+            {children}
+          </div>
+        </SmoothScroll>
       </body>
     </html>
   );

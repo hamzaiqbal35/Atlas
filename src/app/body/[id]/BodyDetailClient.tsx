@@ -40,6 +40,7 @@ const renderSectionContent = (content?: SectionContent, reverse = false) => {
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover transition-transform duration-[20000ms] hover:scale-110"
+            unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         </motion.div>
@@ -193,30 +194,38 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
             
             {liveData ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
-                  <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Mean Radius</div>
-                  <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
-                    {liveData.meanRadius ? <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.meanRadius.toLocaleString()}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">km</span></span> : "N/A"}
+                {liveData.meanRadius ? (
+                  <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
+                    <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Mean Radius</div>
+                    <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.meanRadius.toLocaleString()}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">km</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
-                  <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Density</div>
-                  <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
-                    {liveData.density ? <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.density}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">g/cm³</span></span> : "N/A"}
+                ) : null}
+                {liveData.density ? (
+                  <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
+                    <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Density</div>
+                    <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.density}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">g/cm³</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
-                  <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Mass</div>
-                  <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
-                    {liveData.mass ? <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.mass.massValue}</span> <span className="text-lg 2xl:text-xl text-muted-foreground font-sans whitespace-nowrap">× 10^{liveData.mass.massExponent} kg</span></span> : "N/A"}
+                ) : null}
+                {liveData.mass ? (
+                  <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
+                    <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Mass</div>
+                    <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.mass.massValue}</span> <span className="text-lg 2xl:text-xl text-muted-foreground font-sans whitespace-nowrap">× 10^{liveData.mass.massExponent} kg</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
-                  <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Gravity</div>
-                  <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
-                    {liveData.gravity ? <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.gravity}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">m/s²</span></span> : "N/A"}
+                ) : null}
+                {liveData.gravity ? (
+                  <div className="bg-card/30 border border-border/30 rounded-3xl p-8 backdrop-blur-md hover:bg-card/50 transition-all hover:border-[var(--theme-primary)]/50 group flex flex-col justify-center">
+                    <div className="text-sm text-muted-foreground mb-3 font-medium uppercase tracking-wider">Gravity</div>
+                    <div className="text-3xl 2xl:text-4xl font-mono group-hover:text-[var(--theme-primary)] transition-colors">
+                      <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1"><span>{liveData.gravity}</span> <span className="text-xl text-muted-foreground font-sans whitespace-nowrap">m/s²</span></span>
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             ) : (
               <div className="bg-[var(--theme-primary)]/10 border border-[var(--theme-primary)]/20 rounded-3xl p-8 flex items-start gap-4">
@@ -248,30 +257,38 @@ export function BodyDetailClient({ staticData, liveData, encyclopediaData }: Bod
 
             {liveData && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
-                  <div className="text-sm text-muted-foreground mb-2">Semi-Major Axis</div>
-                  <div className="text-2xl font-mono">
-                    {liveData.semimajorAxis ? <span className="flex items-baseline gap-2">{liveData.semimajorAxis.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span> : "N/A"}
+                {liveData.semimajorAxis ? (
+                  <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
+                    <div className="text-sm text-muted-foreground mb-2">Semi-Major Axis</div>
+                    <div className="text-2xl font-mono">
+                      <span className="flex items-baseline gap-2">{liveData.semimajorAxis.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
-                  <div className="text-sm text-muted-foreground mb-2">Perihelion</div>
-                  <div className="text-2xl font-mono">
-                    {liveData.perihelion ? <span className="flex items-baseline gap-2">{liveData.perihelion.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span> : "N/A"}
+                ) : null}
+                {liveData.perihelion ? (
+                  <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
+                    <div className="text-sm text-muted-foreground mb-2">Perihelion</div>
+                    <div className="text-2xl font-mono">
+                      <span className="flex items-baseline gap-2">{liveData.perihelion.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
-                  <div className="text-sm text-muted-foreground mb-2">Aphelion</div>
-                  <div className="text-2xl font-mono">
-                    {liveData.aphelion ? <span className="flex items-baseline gap-2">{liveData.aphelion.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span> : "N/A"}
+                ) : null}
+                {liveData.aphelion ? (
+                  <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
+                    <div className="text-sm text-muted-foreground mb-2">Aphelion</div>
+                    <div className="text-2xl font-mono">
+                      <span className="flex items-baseline gap-2">{liveData.aphelion.toLocaleString()} <span className="text-sm text-muted-foreground font-sans">km</span></span>
+                    </div>
                   </div>
-                </div>
-                <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
-                  <div className="text-sm text-muted-foreground mb-2">Axial Tilt</div>
-                  <div className="text-2xl font-mono">
-                    {liveData.axialTilt !== null ? <span className="flex items-baseline gap-2">{liveData.axialTilt}°</span> : "N/A"}
+                ) : null}
+                {liveData.axialTilt !== null && liveData.axialTilt !== undefined && liveData.axialTilt !== 0 ? (
+                  <div className="bg-card/20 border border-border/30 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between items-start hover:bg-card/40 transition-colors">
+                    <div className="text-sm text-muted-foreground mb-2">Axial Tilt</div>
+                    <div className="text-2xl font-mono">
+                      <span className="flex items-baseline gap-2">{liveData.axialTilt}°</span>
+                    </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             )}
           </motion.div>

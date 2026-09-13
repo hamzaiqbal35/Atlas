@@ -25,9 +25,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 2rem;
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 15, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   pointer-events: none;
   z-index: 120;
@@ -109,7 +107,6 @@
 
 .sm-panel-itemWrap {
   position: relative;
-  overflow: hidden;
   line-height: 1;
 }
 
@@ -136,9 +133,7 @@
   width: clamp(260px, 38vw, 420px);
   height: 100%;
   box-sizing: border-box;
-  background: rgba(15, 15, 20, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10, 10, 15, 0.98);
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;

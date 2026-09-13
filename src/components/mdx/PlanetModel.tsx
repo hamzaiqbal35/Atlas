@@ -20,10 +20,9 @@ function PlanetSphere({ body, radius = 2 }: { body: string; radius?: number }) {
     uranus: "/uranus_texture.png",
     neptune: "/neptune_texture.png",
     pluto: "/pluto_texture.png",
-    luna: "/moon_texture.png"
   };
 
-  const textureUrl = textureMap[body.toLowerCase()] || "/earth_texture.png";
+  const textureUrl = textureMap[body.toLowerCase()] || `/${body.toLowerCase()}_texture.png`;
   const bodySpecs: Record<string, { speed: number, tilt: number }> = {
     sun: { speed: 0.05, tilt: 0.12 },
     mercury: { speed: 0.05, tilt: 0.001 },

@@ -129,7 +129,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     }
     itemEntranceTweenRef.current?.kill();
 
-    const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
+    const itemEls = Array.from(panel.querySelectorAll('.sm-anim-element'));
     const numberEls = Array.from(panel.querySelectorAll('.sm-panel-list[data-numbering] .sm-panel-item'));
     const socialTitle = panel.querySelector('.sm-socials-title');
     const socialLinks = Array.from(panel.querySelectorAll('.sm-socials-link'));
@@ -174,9 +174,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         {
           yPercent: 0,
           rotate: 0,
-          duration: 0.6,
+          duration: 0.5,
           ease: 'power4.out',
-          stagger: { each: 0.05, from: 'start' } as any
+          stagger: { amount: 0.3, from: 'start' } as any
         },
         itemsStart
       );
@@ -187,7 +187,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             duration: 0.4,
             ease: 'power2.out',
             '--sm-num-opacity': 1,
-            stagger: { each: 0.04, from: 'start' } as any
+            stagger: { amount: 0.3, from: 'start' } as any
           },
           itemsStart + 0.05
         );
@@ -215,7 +215,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             opacity: 1,
             duration: 0.4,
             ease: 'power3.out',
-            stagger: { each: 0.05, from: 'start' } as any,
+            stagger: { amount: 0.2, from: 'start' } as any,
             onComplete: () => {
               gsap.set(socialLinks, { clearProps: 'opacity' });
             }
@@ -261,7 +261,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
       ease: 'power3.in',
       overwrite: 'auto',
       onComplete: () => {
-        const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
+        const itemEls = Array.from(panel.querySelectorAll('.sm-anim-element'));
         if (itemEls.length) {
           gsap.set(itemEls, { yPercent: 140, rotate: 10 });
         }
@@ -476,8 +476,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     aria-label={it.ariaLabel} 
                     data-index={idx + 1} 
                     onClick={it.children && it.children.length > 0 ? (e) => toggleExpand(it.label, e) : closeMenu}
+                    style={{ overflow: 'hidden' }}
                   >
-                    <span className="sm-panel-itemLabel">
+                    <span className="sm-panel-itemLabel sm-anim-element">
                       {it.label}
                       {it.children && it.children.length > 0 && (
                         <span className={`sm-panel-chevron ${expandedItems[it.label] ? 'expanded' : ''}`}>▼</span>
@@ -490,9 +491,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                         {it.children.map((sub, sidx) => {
                           const isChildActive = pathname === sub.link;
                           return (
-                          <li key={sub.label + sidx}>
+                          <li key={sub.label + sidx} style={{ overflow: 'hidden' }}>
                             <Link className={`sm-panel-subitem ${isChildActive ? 'active' : ''}`} href={sub.link} onClick={closeMenu}>
-                              {sub.label}
+                              <span style={{ display: 'block', transformOrigin: '50% 100%' }}>
+                                {sub.label}
+                              </span>
                             </Link>
                           </li>
                           );

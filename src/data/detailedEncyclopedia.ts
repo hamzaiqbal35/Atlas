@@ -336,7 +336,7 @@ export const detailedEncyclopedia: Record<string, DetailedEncyclopedia> = {
         text: [
           "Jupiter is the fifth planet from the Sun and the largest in the Solar System. It is a massive gas giant, with a mass more than two and a half times that of all the other planets in the Solar System combined.",
           "Its iconic, turbulent atmosphere is banded with beautiful clouds of ammonia and water, driven by extremely fast jet streams. The planet lacks a well-defined solid surface.",
-          "Jupiter's most famous feature is the Great Red Spot, a colossal, centuries-old anticyclonic storm that is larger than the entire Earth."
+          "Jupiter's most famous feature is the Great Red Spot, a colossal, centuries-old anticyclonic storm that is larger than the entire Earth. It has been continuously observed since at least 1831, and possibly since 1665. The storm boasts wind speeds peaking at an astonishing 432 km/h (268 mph). While it is currently shrinking in size, it remains wide enough to swallow Earth whole, serving as a striking testament to Jupiter's chaotic and incredibly powerful atmospheric dynamics."
         ],
         imageUrl: "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg",
         imageAlt: "Jupiter and the Great Red Spot"
