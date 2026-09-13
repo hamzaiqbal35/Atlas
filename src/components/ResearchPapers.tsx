@@ -1,10 +1,57 @@
-import { getLatestPapers } from "@/lib/arxiv";
-import { FileText, ExternalLink, Calendar, Users, FlaskConical } from "lucide-react";
+"use client";
+
+import { useEffect, useState } from "react";
+import { FileText, ExternalLink, Calendar, Users, FlaskConical, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/animations";
+import { ArxivPaper } from "@/lib/arxiv";
 
-export async function ResearchPapers({ query }: { query: string }) {
-  const papers = await getLatestPapers(query, 5);
+export function ResearchPapers({ query }: { query: string }) {
+  const [papers, setPapers] = useState<ArxivPaper[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+    
+    async function fetchPapers() {
+      try {
+        const res = await fetch(`/api/arxiv?q=${encodeURIComponent(query)}`);
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        if (isMounted) {
+          setPapers(data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Failed to load papers:", error);
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    fetchPapers();
+    return () => { isMounted = false; };
+  }, [query]);
+
+  if (loading) {
+    return (
+      <section className="mt-20 pt-16 border-t border-white/[0.05]">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="p-2.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400">
+            <FlaskConical className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight text-white">Latest Research</h2>
+            <p className="text-sm text-muted-foreground mt-1">Live peer-reviewed papers via arXiv</p>
+          </div>
+        </div>
+        <div className="flex items-center justify-center p-12">
+          <Loader2 className="w-8 h-8 animate-spin text-blue-500/50" />
+        </div>
+      </section>
+    );
+  }
 
   if (!papers || papers.length === 0) {
     return null;
