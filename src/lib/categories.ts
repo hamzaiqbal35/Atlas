@@ -1,4 +1,6 @@
-import { 
+import {
+  Sun,
+  Compass,
   Globe, Orbit, Atom, Microscope, Telescope, Waves, Cpu, Network,
   Rocket, Zap, Star, Activity, Hexagon, Snowflake, Flame, Shield, 
   Target, Sparkles, Variable, Thermometer, Wind, Infinity, 
@@ -24,9 +26,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'the-universe',
     title: 'The Universe',
-    description: 'Explore The Universe.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The totality of space, time, matter, and energy spanning from the cosmic horizon to the large-scale web of cosmic filaments.',
+    icon: Globe,
+    color: 'from-blue-500 to-indigo-600',
     subcategories: [
       { slug: 'observable-universe', title: 'Observable Universe' },
       { slug: 'entire-universe', title: 'Entire Universe' },
@@ -41,9 +43,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'space-time',
     title: 'Space-Time',
-    description: 'Explore Space-Time.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The seamless four-dimensional geometric fabric of reality where gravitation manifests as the curvature of space and time.',
+    icon: Orbit,
+    color: 'from-purple-500 to-indigo-600',
     subcategories: [
       { slug: 'space', title: 'Space' },
       { slug: 'time', title: 'Time' },
@@ -57,9 +59,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'fundamental-physics',
     title: 'Fundamental Physics',
-    description: 'Explore Fundamental Physics.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The core physical laws, four fundamental interactions, and quantum frameworks governing matter, energy, and cosmic mechanics.',
+    icon: Atom,
+    color: 'from-cyan-400 to-blue-600',
     subcategories: [
       { slug: 'gravity', title: 'Gravity' },
       { slug: 'electromagnetism', title: 'Electromagnetism' },
@@ -75,9 +77,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'matter',
     title: 'Matter',
-    description: 'Explore Matter.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The physical substance of the universe, encompassing baryonic elements, invisible dark matter, exotic states, and antimatter.',
+    icon: Hexagon,
+    color: 'from-emerald-400 to-teal-600',
     subcategories: [
       { slug: 'normal-matter', title: 'Normal Matter' },
       { slug: 'dark-matter', title: 'Dark Matter' },
@@ -92,9 +94,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'elementary-particles',
     title: 'Elementary Particles',
-    description: 'Explore Elementary Particles.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The fundamental subatomic constituents of the Standard Model—quarks, leptons, and gauge bosons that form all observable matter.',
+    icon: Sparkles,
+    color: 'from-pink-500 to-rose-600',
     subcategories: [
       { slug: 'quarks', title: 'Quarks' },
       { slug: 'leptons', title: 'Leptons' },
@@ -112,9 +114,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'atoms-chemistry',
     title: 'Atoms & Chemistry',
-    description: 'Explore Atoms & Chemistry.',
+    description: 'Atomic structure, electronic orbital geometries, elemental periodicity, and the chemical reactions driving cosmic synthesis.',
     icon: Atom,
-    color: 'from-blue-500 to-indigo-400',
+    color: 'from-amber-400 to-orange-500',
     subcategories: [
       { slug: 'atom', title: 'The Atom' },
       { slug: 'chemical-elements', title: 'Chemical Elements' },
@@ -127,9 +129,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'cosmology',
     title: 'Cosmology',
-    description: 'Explore Cosmology.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The scientific study of the origin, cosmic inflation, large-scale evolution, and ultimate theoretical fates of the universe.',
+    icon: Infinity,
+    color: 'from-violet-500 to-purple-700',
     subcategories: [
       { slug: 'big-bang', title: 'Big Bang' },
       { slug: 'inflation', title: 'Inflation' },
@@ -148,9 +150,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'galaxies',
     title: 'Galaxies',
-    description: 'Explore Galaxies.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Colossal gravitationally bound systems containing hundreds of billions of stars, interstellar dust, and supermassive black holes.',
+    icon: Compass,
+    color: 'from-sky-400 to-blue-600',
     subcategories: [
       { slug: 'milky-way', title: 'Milky Way' },
       { slug: 'andromeda-galaxy', title: 'Andromeda Galaxy' },
@@ -170,9 +172,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'galaxy-structures',
     title: 'Galaxy Structures',
-    description: 'Explore Galaxy Structures.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The anatomical architecture of galaxies: galactic nuclei, dense central bulges, stellar disks, spiral arms, and dark matter halos.',
+    icon: Network,
+    color: 'from-indigo-400 to-cyan-500',
     subcategories: [
       { slug: 'galactic-core', title: 'Galactic Core' },
       { slug: 'bulge', title: 'Bulge' },
@@ -186,9 +188,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'galaxy-groups',
     title: 'Galaxy Groups',
-    description: 'Explore Galaxy Groups.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Vast cosmic structures formed by gravitational clustering, including local groups, massive galaxy clusters, and expansive voids.',
+    icon: Component,
+    color: 'from-blue-400 to-violet-500',
     subcategories: [
       { slug: 'local-group', title: 'Local Group' },
       { slug: 'galaxy-clusters', title: 'Galaxy Clusters' },
@@ -200,9 +202,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'stars',
     title: 'Stars',
-    description: 'Explore Stars.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Luminous celestial spheres of incandescent plasma powered by core nuclear fusion, spanning dwarfs, giants, and hypergiants.',
+    icon: Star,
+    color: 'from-amber-400 to-yellow-500',
     subcategories: [
       { slug: 'protostar', title: 'Protostar' },
       { slug: 'main-sequence', title: 'Main Sequence' },
@@ -225,9 +227,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'stellar-evolution',
     title: 'Stellar Evolution',
-    description: 'Explore Stellar Evolution.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The evolutionary lifecycles of stars, from molecular cloud collapse and protostars to supernovae, white dwarfs, and black holes.',
+    icon: Flame,
+    color: 'from-orange-500 to-red-600',
     subcategories: [
       { slug: 'nebula', title: 'Nebula' },
       { slug: 'protostar', title: 'Protostar' },
@@ -244,9 +246,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'stellar-objects',
     title: 'Stellar Objects',
-    description: 'Explore Stellar Objects.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Exotic and multi-star arrangements including binary orbits, variable pulsators, high-velocity runaway stars, and Cepheids.',
+    icon: Orbit,
+    color: 'from-yellow-400 to-amber-600',
     subcategories: [
       { slug: 'binary-star', title: 'Binary Star' },
       { slug: 'triple-star', title: 'Triple Star' },
@@ -262,9 +264,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'stellar-remnants',
     title: 'Stellar Remnants',
-    description: 'Explore Stellar Remnants.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The ultradense corpses left behind after stellar death, including electron-degenerate white dwarfs, neutron stars, and magnetars.',
+    icon: Eclipse,
+    color: 'from-stone-400 to-zinc-600',
     subcategories: [
       { slug: 'white-dwarf', title: 'White Dwarf' },
       { slug: 'black-dwarf', title: 'Black Dwarf' },
@@ -277,9 +279,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'black-holes',
     title: 'Black Holes',
-    description: 'Explore Black Holes.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Spacetime singularities with gravitational fields so extreme that not even electromagnetic radiation can escape their event horizons.',
+    icon: CircleDot,
+    color: 'from-red-500 to-orange-600',
     subcategories: [
       { slug: 'stellar-mass', title: 'Stellar Mass' },
       { slug: 'intermediate', title: 'Intermediate' },
@@ -294,9 +296,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'planets',
     title: 'Planets',
-    description: 'Explore Planets.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Major non-luminous bodies orbiting stars, ranging from terrestrial rocky spheres to gaseous giants and rogue interstellar nomads.',
+    icon: Globe,
+    color: 'from-emerald-400 to-cyan-500',
     subcategories: [
       { slug: 'terrestrial', title: 'Terrestrial' },
       { slug: 'gas-giant', title: 'Gas Giant' },
@@ -314,9 +316,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'dwarf-planets',
     title: 'Dwarf Planets',
-    description: 'Explore Dwarf Planets.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Spherical celestial worlds that orbit the Sun but have not gravitationally cleared their surrounding orbital neighborhoods.',
+    icon: CircleDot,
+    color: 'from-stone-400 to-amber-600',
     subcategories: [
       { slug: 'pluto', title: 'Pluto' },
       { slug: 'ceres', title: 'Ceres' },
@@ -328,9 +330,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'natural-satellites',
     title: 'Natural Satellites',
-    description: 'Explore Natural Satellites.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Planetary moons exhibiting extreme geological diversity, from volcanic infernos and subsurface oceans to tidally locked rocks.',
+    icon: Orbit,
+    color: 'from-slate-300 to-zinc-500',
     subcategories: [
       { slug: 'moon', title: 'Moon' },
       { slug: 'captured-moon', title: 'Captured Moon' },
@@ -344,9 +346,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'small-solar-system-bodies',
     title: 'Small Solar System Bodies',
-    description: 'Explore Small Solar System Bodies.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Primitive remnants of planetary formation, including near-Earth asteroids, icy comets, Kuiper Belt objects, and Oort Cloud relics.',
+    icon: Aperture,
+    color: 'from-neutral-400 to-stone-500',
     subcategories: [
       { slug: 'asteroid', title: 'Asteroid' },
       { slug: 'near-earth-asteroid', title: 'Near Earth Asteroid' },
@@ -367,9 +369,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'rings',
     title: 'Rings',
-    description: 'Explore Rings.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Circumplanetary structures composed of billions of water-ice boulders, silicate dust rings, and resonance gaps shaped by shepherd moons.',
+    icon: Orbit,
+    color: 'from-yellow-300 to-amber-500',
     subcategories: [
       { slug: 'planetary-rings', title: 'Planetary Rings' },
       { slug: 'dust-rings', title: 'Dust Rings' },
@@ -381,9 +383,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'nebulae',
     title: 'Nebulae',
-    description: 'Explore Nebulae.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Interstellar clouds of dust, ionized hydrogen, and plasma acting as stellar nurseries, supernova remnants, and reflection clouds.',
+    icon: Waves,
+    color: 'from-fuchsia-500 to-purple-600',
     subcategories: [
       { slug: 'emission', title: 'Emission' },
       { slug: 'reflection', title: 'Reflection' },
@@ -398,9 +400,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'interstellar-medium',
     title: 'Interstellar Medium',
-    description: 'Explore Interstellar Medium.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The diffuse matter and radiation permeating the space between star systems, composed of neutral gas, molecular clouds, and cosmic dust.',
+    icon: Wind,
+    color: 'from-teal-400 to-blue-500',
     subcategories: [
       { slug: 'dust', title: 'Dust' },
       { slug: 'gas', title: 'Gas' },
@@ -413,9 +415,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'intergalactic-medium',
     title: 'Intergalactic Medium',
-    description: 'Explore Intergalactic Medium.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The ultra-sparse cosmic plasma filling the voids between galaxies, structured by the warm-hot intergalactic medium and cosmic shocks.',
+    icon: Waves,
+    color: 'from-indigo-400 to-blue-600',
     subcategories: [
       { slug: 'warm-hot-intergalactic-medium', title: 'Warm-Hot Intergalactic Medium' },
       { slug: 'intracluster-medium', title: 'Intracluster Medium' },
@@ -425,9 +427,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'high-energy-objects',
     title: 'High-Energy Objects',
-    description: 'Explore High-Energy Objects.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Astrophysical powerhouses including relativistic blazars, supermassive quasars, accretion disks, and gamma-ray bursts.',
+    icon: Zap,
+    color: 'from-violet-500 to-rose-600',
     subcategories: [
       { slug: 'quasar', title: 'Quasar' },
       { slug: 'blazar', title: 'Blazar' },
@@ -441,9 +443,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'radiation',
     title: 'Radiation',
-    description: 'Explore Radiation.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The complete spectrum of cosmic electromagnetic emissions, high-velocity cosmic rays, elusive neutrinos, and gravitational waves.',
+    icon: Radar,
+    color: 'from-cyan-400 to-emerald-500',
     subcategories: [
       { slug: 'visible', title: 'Visible' },
       { slug: 'infrared', title: 'Infrared' },
@@ -460,9 +462,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'space-phenomena',
     title: 'Space Phenomena',
-    description: 'Explore Space Phenomena.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Dynamic manifestations of space plasma and stellar magnetism, from auroral curtains to coronal mass ejections and bow shocks.',
+    icon: Activity,
+    color: 'from-amber-400 to-rose-500',
     subcategories: [
       { slug: 'aurora', title: 'Aurora' },
       { slug: 'solar-wind', title: 'Solar Wind' },
@@ -482,9 +484,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'catastrophic-events',
     title: 'Catastrophic Events',
-    description: 'Explore Catastrophic Events.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Violent cosmic events of immense scale, including core-collapse supernovae, kilonova mergers, and tidal disruption flares.',
+    icon: Flame,
+    color: 'from-red-500 to-amber-500',
     subcategories: [
       { slug: 'supernova', title: 'Supernova' },
       { slug: 'hypernova', title: 'Hypernova' },
@@ -502,9 +504,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'orbital-mechanics',
     title: 'Orbital Mechanics',
-    description: 'Explore Orbital Mechanics.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The gravitational mathematics of orbital trajectories, Keplerian laws, Lagrange points, delta-v budgets, and celestial dynamics.',
+    icon: Orbit,
+    color: 'from-blue-400 to-teal-500',
     subcategories: [
       { slug: 'orbit', title: 'Orbit' },
       { slug: 'escape-velocity', title: 'Escape Velocity' },
@@ -524,9 +526,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'space-weather',
     title: 'Space Weather',
-    description: 'Explore Space Weather.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Solar wind variability, geomagnetic storms, radiation belts, and magnetospheric disturbances impacting planetary atmospheres.',
+    icon: Shield,
+    color: 'from-yellow-400 to-orange-500',
     subcategories: [
       { slug: 'solar-storm', title: 'Solar Storm' },
       { slug: 'geomagnetic-storm', title: 'Geomagnetic Storm' },
@@ -539,9 +541,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'cosmic-structures',
     title: 'Cosmic Structures',
-    description: 'Explore Cosmic Structures.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The largest architectural features of the observable universe: supercluster filaments, cosmic walls, and immense cosmic voids.',
+    icon: Network,
+    color: 'from-purple-400 to-indigo-600',
     subcategories: [
       { slug: 'cosmic-web', title: 'Cosmic Web' },
       { slug: 'filament', title: 'Filament' },
@@ -556,9 +558,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'constellations',
     title: 'Constellations',
-    description: 'Explore Constellations.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The 88 officially recognized IAU celestial patterns dividing the night sky into standardized astronomical observation regions.',
+    icon: Sparkles,
+    color: 'from-indigo-300 to-sky-500',
     subcategories: [
       { slug: 'all-88-iau-constellations', title: 'All 88 IAU constellations' },
     ]
@@ -566,9 +568,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'astronomical-coordinate-systems',
     title: 'Astronomical Coordinate Systems',
-    description: 'Explore Astronomical Coordinate Systems.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Standardized celestial mapping frameworks: equatorial, ecliptic, galactic, and ICRF reference grids used to pinpoint celestial objects.',
+    icon: Target,
+    color: 'from-blue-400 to-indigo-500',
     subcategories: [
       { slug: 'equatorial', title: 'Equatorial' },
       { slug: 'galactic', title: 'Galactic' },
@@ -580,9 +582,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'time-systems',
     title: 'Time Systems',
-    description: 'Explore Time Systems.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Astronomical chronometry standards: UTC, International Atomic Time (TAI), Sidereal time, and relativistic barycentric dynamical time.',
+    icon: Thermometer,
+    color: 'from-cyan-400 to-blue-500',
     subcategories: [
       { slug: 'utc', title: 'UTC' },
       { slug: 'tai', title: 'TAI' },
@@ -595,9 +597,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'human-spaceflight',
     title: 'Human Spaceflight',
-    description: 'Explore Human Spaceflight.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Crewed missions to orbit and beyond, space stations, space suits, life support engineering, and lunar exploration frontiers.',
+    icon: Rocket,
+    color: 'from-blue-500 to-cyan-400',
     subcategories: [
       { slug: 'astronaut', title: 'Astronaut' },
       { slug: 'cosmonaut', title: 'Cosmonaut' },
@@ -617,9 +619,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'astronomy',
     title: 'Astronomy',
-    description: 'Explore Astronomy.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The observation disciplines across the electromagnetic spectrum: radio, infrared, optical, X-ray, neutrino, and astrobiology.',
+    icon: Telescope,
+    color: 'from-violet-400 to-blue-500',
     subcategories: [
       { slug: 'optical', title: 'Optical' },
       { slug: 'radio', title: 'Radio' },
@@ -639,9 +641,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'the-solar-system',
     title: 'The Solar System',
-    description: 'Explore The Solar System.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'The Sun and its gravitational family: eight major planets, recognized dwarf worlds, 200+ moons, and millions of icy and rocky bodies.',
+    icon: Sun,
+    color: 'from-amber-400 to-orange-600',
     subcategories: [
       { slug: 'the-sun', title: 'The Sun' },
       { slug: '8-planets', title: '8 planets' },
@@ -657,9 +659,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'exoplanets',
     title: 'Exoplanets',
-    description: 'Explore Exoplanets.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Alien worlds orbiting distant stars: hot Jupiters, super-Earths, mini-Neptunes, circumbinary systems, and potentially habitable worlds.',
+    icon: Globe,
+    color: 'from-emerald-400 to-teal-500',
     subcategories: [
       { slug: 'hot-jupiter', title: 'Hot Jupiter' },
       { slug: 'warm-jupiter', title: 'Warm Jupiter' },
@@ -676,9 +678,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'life-in-the-universe',
     title: 'Life in the Universe',
-    description: 'Explore Life in the Universe.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Astrobiology, circumstellar habitable zones, extremophile biology, biosignature detection, the Drake Equation, and SETI.',
+    icon: Microscope,
+    color: 'from-teal-400 to-emerald-600',
     subcategories: [
       { slug: 'habitable-zone', title: 'Habitable Zone' },
       { slug: 'extremophiles', title: 'Extremophiles' },
@@ -694,9 +696,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'space-missions',
     title: 'Space Missions',
-    description: 'Explore Space Missions.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Historical and active exploratory spacecraft: planetary landers, deep space flyby probes, space observatories, and orbiters.',
+    icon: Radar,
+    color: 'from-sky-400 to-indigo-500',
     subcategories: [
       { slug: 'crewed-missions', title: 'Crewed missions' },
       { slug: 'lunar-missions', title: 'Lunar missions' },
@@ -714,9 +716,9 @@ export const CATEGORIES: Category[] = [
   {
     slug: 'space-technology',
     title: 'Space Technology',
-    description: 'Explore Space Technology.',
-    icon: Globe, // Default
-    color: 'from-blue-500 to-indigo-400',
+    description: 'Advanced space engineering: ion propulsion, nuclear thermal drives, solar sails, orbital habitats, and terraforming concepts.',
+    icon: Cpu,
+    color: 'from-blue-400 to-violet-600',
     subcategories: [
       { slug: 'chemical-rocket', title: 'Chemical Rocket' },
       { slug: 'ion-engine', title: 'Ion Engine' },

@@ -7,7 +7,15 @@ export function GlobalNavigation() {
   const menuItems = [
     { label: "Home", link: "/", exact: true },
     { label: "The Atlas", link: "/explore", exact: true },
-    { label: "Search", link: "#", ariaLabel: "Press Ctrl+K to search" }, // Or handle search differently
+    { 
+      label: "Search", 
+      link: "#", 
+      ariaLabel: "Search the cosmos (Ctrl+K)",
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.dispatchEvent(new CustomEvent("open-omnisearch"));
+      }
+    },
     ...CATEGORIES.map((cat) => ({
       label: cat.title,
       link: `/explore/${cat.slug}`,

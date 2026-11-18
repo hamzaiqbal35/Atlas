@@ -12,6 +12,7 @@ export interface StaggeredMenuItem {
   link: string;
   ariaLabel?: string;
   exact?: boolean;
+  onClick?: (e: React.MouseEvent) => void;
   children?: StaggeredMenuItem[];
 }
 
@@ -475,7 +476,16 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                     href={it.children && it.children.length > 0 ? '#' : it.link} 
                     aria-label={it.ariaLabel} 
                     data-index={idx + 1} 
-                    onClick={it.children && it.children.length > 0 ? (e) => toggleExpand(it.label, e) : closeMenu}
+                    onClick={(e) => {
+                      if (it.onClick) {
+                        it.onClick(e);
+                      }
+                      if (it.children && it.children.length > 0) {
+                        toggleExpand(it.label, e);
+                      } else {
+                        closeMenu();
+                      }
+                    }}
                     style={{ overflow: 'hidden' }}
                   >
                     <span className="sm-panel-itemLabel sm-anim-element">
