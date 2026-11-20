@@ -30,7 +30,10 @@ export function ScrollManager() {
         trigger: "#main-scroll-container",
         start: "top top",
         end: "bottom bottom",
-        scrub: 2.5, // Ultra smooth scrubbing
+        scrub: 0.8, // Snappy & silky smooth scrubbing
+        onLeaveBack: () => {
+          setActiveNode("sun");
+        },
       },
       onUpdate: function () {
         setCameraPosition([proxy.x, proxy.y, proxy.z]);

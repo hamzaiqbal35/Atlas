@@ -50,3 +50,5 @@ rules.md
 PAGE_TEMPLATE.md
 
 testsprite_tests/
+testsprite_tests/tmp/
+testsprite_tests/tmp/config.json

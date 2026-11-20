@@ -1,19 +1,45 @@
+/* OmniSearch Professional React Bits-inspired Styling */
+
+.cosmic-search-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #27272a transparent;
+}
+
+.cosmic-search-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cosmic-search-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cosmic-search-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+  transition: background 0.15s ease;
+}
+
+.cosmic-search-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
 [cmdk-group-heading] {
-  padding: 8px 16px;
-  color: var(--muted-foreground);
-  font-size: 12px;
+  padding: 8px 12px;
+  color: #71717a; /* zinc-500 */
+  font-size: 11px;
+  font-family: var(--font-geist-mono), monospace;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 [cmdk-item][aria-selected="true"] {
-  background: hsl(var(--primary) / 0.15);
-  color: hsl(var(--primary));
+  background: rgba(255, 255, 255, 0.07) !important;
+  color: #ffffff !important;
 }
 
 [cmdk-empty] {
-  padding: 48px;
+  padding: 48px 16px;
   text-align: center;
-  color: hsl(var(--muted-foreground));
+  color: #71717a;
 }

@@ -3,6 +3,10 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<any>(null);
@@ -10,7 +14,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -21,16 +25,20 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     
     lenisRef.current = lenis;
 
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    // Synchronize Lenis scroll position with GSAP ScrollTrigger
+    lenis.on("scroll", ScrollTrigger.update);
 
-    const rafId = requestAnimationFrame(raf);
+    const updateTicker = (time: number) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateTicker);
+    gsap.ticker.lagSmoothing(0);
     
     // Observe body height changes to prevent Lenis from getting stuck
     const resizeObserver = new ResizeObserver(() => {
       lenis.resize();
+      ScrollTrigger.refresh();
     });
     
     if (document.body) {
@@ -38,7 +46,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     }
 
     return () => {
-      cancelAnimationFrame(rafId);
+      gsap.ticker.remove(updateTicker);
       resizeObserver.disconnect();
       lenis.destroy();
     };
@@ -47,7 +55,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.resize();
-      // Optional: reset scroll position on navigation if desired, but next.js handles it usually
+      ScrollTrigger.refresh();
     }
   }, [pathname]);
 
