@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   try {
     const papers = await getLatestPapers(query, 5);
     return NextResponse.json(papers);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch papers" }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FileText, ExternalLink, Calendar, Users, FlaskConical, Loader2 } from "lucide-react";
+import { ExternalLink, Calendar, Users, FlaskConical, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/animations";
 import { ArxivPaper } from "@/lib/arxiv";

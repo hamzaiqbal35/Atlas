@@ -5,44 +5,53 @@ import { useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
+function seededRandom(seed: number) {
+  let s = seed;
+  return function() {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+function generateParticles(count: number) {
+  const random = seededRandom(42);
+  const temp = [];
+  for (let i = 0; i < count; i++) {
+    const t = random() * Math.PI * 2;
+    const radius = 140 + random() * 30; // Wider belt
+    
+    const x = Math.cos(t) * radius;
+    // Normal distribution-like scatter for y (thicker at center, thinner at edges)
+    const y = (random() - 0.5) * (random() * 15); 
+    const z = Math.sin(t) * radius;
+    
+    // Much larger scale variation for realism
+    const scale = 0.1 + Math.pow(random(), 3) * 1.5;
+    
+    // Pre-calculate rotation axis and speed for performance
+    const rotX = random() * Math.PI;
+    const rotY = random() * Math.PI;
+    const rotZ = random() * Math.PI;
+    const rotSpeedX = (random() - 0.5) * 0.5;
+    const rotSpeedY = (random() - 0.5) * 0.5;
+    const rotSpeedZ = (random() - 0.5) * 0.5;
+    
+    temp.push({ x, y, z, scale, rotX, rotY, rotZ, rotSpeedX, rotSpeedY, rotSpeedZ });
+  }
+  return temp;
+}
+
 export function AsteroidBelt() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const count = 8000;
-  
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  
-  const particles = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      const t = Math.random() * Math.PI * 2;
-      const radius = 140 + Math.random() * 30; // Wider belt
-      
-      const x = Math.cos(t) * radius;
-      // Normal distribution-like scatter for y (thicker at center, thinner at edges)
-      const y = (Math.random() - 0.5) * (Math.random() * 15); 
-      const z = Math.sin(t) * radius;
-      
-      // Much larger scale variation for realism
-      const scale = 0.1 + Math.pow(Math.random(), 3) * 1.5;
-      
-      // Pre-calculate rotation axis and speed for performance
-      const rotX = Math.random() * Math.PI;
-      const rotY = Math.random() * Math.PI;
-      const rotZ = Math.random() * Math.PI;
-      const rotSpeedX = (Math.random() - 0.5) * 0.5;
-      const rotSpeedY = (Math.random() - 0.5) * 0.5;
-      const rotSpeedZ = (Math.random() - 0.5) * 0.5;
-      
-      temp.push({ x, y, z, scale, rotX, rotY, rotZ, rotSpeedX, rotSpeedY, rotSpeedZ });
-    }
-    return temp;
-  }, [count]);
+  const count = 8000;
+  const particlesRef = useRef(generateParticles(count));
 
   useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.015; // Slow global orbit
       
-      particles.forEach((particle, i) => {
+      particlesRef.current.forEach((particle, i) => {
         dummy.position.set(particle.x, particle.y, particle.z);
         dummy.scale.setScalar(particle.scale);
         

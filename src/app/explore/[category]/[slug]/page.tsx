@@ -6,8 +6,7 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import Link from "next/link";
 import { 
-  ChevronLeft, ChevronRight, Sparkles, Orbit, 
-  Activity, Compass, Layers, ShieldCheck, ArrowRight
+  ChevronLeft, ChevronRight, Orbit, ArrowRight
 } from "lucide-react";
 import { DynamicPlanetModel as PlanetModel } from "@/components/mdx/DynamicPlanetModel";
 import { FadeInStaggerContainer, FadeInStaggerItem } from "@/components/animations";
@@ -248,7 +247,7 @@ export default async function ExplorePage({
                 }}
                 components={{ 
                   PlanetModel: () => null,
-                  PeriodicTable: (props: any) => <PeriodicTable {...props} />,
+                  PeriodicTable: () => <PeriodicTable />,
                   img: () => null
                 }} 
               />

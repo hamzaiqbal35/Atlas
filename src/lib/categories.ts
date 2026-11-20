@@ -2,9 +2,9 @@ import {
   Sun,
   Compass,
   Globe, Orbit, Atom, Microscope, Telescope, Waves, Cpu, Network,
-  Rocket, Zap, Star, Activity, Hexagon, Snowflake, Flame, Shield, 
-  Target, Sparkles, Variable, Thermometer, Wind, Infinity, 
-  CircleDot, Fingerprint, Radar, Eclipse, Component, Combine, Aperture
+  Rocket, Zap, Star, Activity, Hexagon, Flame, Shield, 
+  Target, Sparkles, Thermometer, Wind, Infinity, 
+  CircleDot, Radar, Eclipse, Component, Aperture
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 

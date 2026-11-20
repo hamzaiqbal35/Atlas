@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 
 // Shared Noise function for shaders
@@ -239,33 +239,44 @@ const coronaFragmentShader = `
 export function Sun() {
   const meshRef = useRef<THREE.Mesh>(null);
   const coronaRef = useRef<THREE.Mesh>(null);
+  const sunMatRef = useRef<THREE.ShaderMaterial>(null);
+  const coronaMatRef = useRef<THREE.ShaderMaterial>(null);
 
   const uniforms = useMemo(() => ({
+    time: { value: 0 },
+  }), []);
+
+  const coronaUniforms = useMemo(() => ({
     time: { value: 0 },
   }), []);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
       meshRef.current.rotation.y += delta * 0.02;
-      uniforms.time.value += delta;
+    }
+    if (sunMatRef.current) {
+      sunMatRef.current.uniforms.time.value += delta;
     }
     if (coronaRef.current) {
       coronaRef.current.rotation.y -= delta * 0.015;
       coronaRef.current.rotation.z += delta * 0.005;
     }
+    if (coronaMatRef.current) {
+      coronaMatRef.current.uniforms.time.value += delta;
+    }
   });
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     window.location.href = "/body/sun";
   };
 
-  const handlePointerOver = (e: any) => {
+  const handlePointerOver = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'pointer';
   };
 
-  const handlePointerOut = (e: any) => {
+  const handlePointerOut = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'auto';
   };
@@ -281,6 +292,7 @@ export function Sun() {
       >
         <sphereGeometry args={[5, 128, 128]} />
         <shaderMaterial 
+          ref={sunMatRef}
           vertexShader={vertexShader}
           fragmentShader={fragmentShader}
           uniforms={uniforms}
@@ -291,9 +303,10 @@ export function Sun() {
       <mesh ref={coronaRef}>
         <sphereGeometry args={[6.8, 64, 64]} />
         <shaderMaterial 
+          ref={coronaMatRef}
           vertexShader={coronaVertexShader}
           fragmentShader={coronaFragmentShader}
-          uniforms={uniforms}
+          uniforms={coronaUniforms}
           transparent={true}
           blending={THREE.AdditiveBlending}
           depthWrite={false}

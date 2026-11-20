@@ -3,8 +3,8 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { 
-  ChevronLeft, ArrowUpRight, Search, Sparkles, Filter, 
-  Compass, X, Layers, Activity, ArrowRight
+  ChevronLeft, ArrowUpRight, Search, 
+  Compass, X, Layers, ArrowRight
 } from "lucide-react";
 import { getCosmicTheme } from "@/lib/cosmicTheme";
 
@@ -32,7 +32,6 @@ export default function CategoryIndexClient({
   categorySlug,
   categoryTitle,
   categoryDescription,
-  categoryColor,
   categoryIndex,
   totalCategories,
   subcategories,

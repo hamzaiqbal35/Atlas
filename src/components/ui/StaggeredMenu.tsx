@@ -177,7 +177,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           rotate: 0,
           duration: 0.5,
           ease: 'power4.out',
-          stagger: { amount: 0.3, from: 'start' } as any
+          stagger: { amount: 0.3, from: 'start' }
         },
         itemsStart
       );
@@ -188,7 +188,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             duration: 0.4,
             ease: 'power2.out',
             '--sm-num-opacity': 1,
-            stagger: { amount: 0.3, from: 'start' } as any
+            stagger: { amount: 0.3, from: 'start' }
           },
           itemsStart + 0.05
         );
@@ -216,7 +216,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             opacity: 1,
             duration: 0.4,
             ease: 'power3.out',
-            stagger: { amount: 0.2, from: 'start' } as any,
+            stagger: { amount: 0.2, from: 'start' },
             onComplete: () => {
               gsap.set(socialLinks, { clearProps: 'opacity' });
             }
@@ -415,14 +415,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   return (
     <div
       className={(className ? className + ' ' : '') + 'staggered-menu-wrapper' + (isFixed ? ' fixed-wrapper' : '')}
-      style={accentColor ? { ['--sm-accent' as any]: accentColor } : undefined}
+      style={accentColor ? ({ ['--sm-accent']: accentColor } as React.CSSProperties) : undefined}
       data-position={position}
       data-open={open || undefined}
     >
       <div ref={preLayersRef} className="sm-prelayers" aria-hidden="true">
         {(() => {
           const raw = colors && colors.length ? colors.slice(0, 4) : ['#1e1e22', '#35353c'];
-          let arr = [...raw];
+          const arr = [...raw];
           if (arr.length >= 3) {
             const mid = Math.floor(arr.length / 2);
             arr.splice(mid, 1);

@@ -4,12 +4,21 @@ import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
+function seededRandom(seed: number) {
+  let s = seed;
+  return function() {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
 export function Galaxy() {
   const pointsRef = useRef<THREE.Points>(null);
   
   const particleCount = 10000;
   
   const [positions, colors] = useMemo(() => {
+    const random = seededRandom(101);
     const pos = new Float32Array(particleCount * 3);
     const cols = new Float32Array(particleCount * 3);
     
@@ -19,13 +28,13 @@ export function Galaxy() {
     for (let i = 0; i < particleCount; i++) {
       const i3 = i * 3;
       
-      const radius = Math.random() * 20;
+      const radius = random() * 20;
       const branchAngle = (i % 3) * ((Math.PI * 2) / 3); // 3 spiral arms
       const spinAngle = radius * 0.5;
       
-      const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
-      const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
-      const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 2;
+      const randomX = Math.pow(random(), 3) * (random() < 0.5 ? 1 : -1) * 2;
+      const randomY = Math.pow(random(), 3) * (random() < 0.5 ? 1 : -1) * 2;
+      const randomZ = Math.pow(random(), 3) * (random() < 0.5 ? 1 : -1) * 2;
       
       pos[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
       pos[i3 + 1] = randomY;

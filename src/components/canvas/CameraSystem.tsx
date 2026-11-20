@@ -2,13 +2,13 @@
 
 import { PerspectiveCamera, OrbitControls } from "@react-three/drei";
 import { useThree, useFrame } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState, type ElementRef } from "react";
 import { useCameraStore } from "@/store/useCameraStore";
 import * as THREE from "three";
 
 export function CameraSystem() {
   const { camera } = useThree();
-  const controlsRef = useRef<any>(null);
+  const controlsRef = useRef<ElementRef<typeof OrbitControls>>(null);
   
   const position = useCameraStore((state) => state.position);
   const target = useCameraStore((state) => state.target);
@@ -16,7 +16,7 @@ export function CameraSystem() {
   // Track if user is interacting
   const [isInteracting, setIsInteracting] = useState(false);
 
-  useFrame((state, delta) => {
+  useFrame(() => {
     if (isInteracting) return; // Let OrbitControls take over
 
     // Instantly track the GSAP proxy which is already smoothly interpolated

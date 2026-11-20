@@ -20,6 +20,15 @@ interface RibbonsProps {
   backgroundColor?: number[];
 }
 
+interface RibbonLine {
+  spring: number;
+  friction: number;
+  mouseVelocity: Vec3;
+  mouseOffset: Vec3;
+  polyline: Polyline;
+  points: Vec3[];
+}
+
 const Ribbons = ({
   colors = ['#FC8EAC'],
   baseSpring = 0.03,
@@ -56,7 +65,7 @@ const Ribbons = ({
     container.appendChild(gl.canvas);
 
     const scene = new Transform();
-    const lines: any[] = [];
+    const lines: RibbonLine[] = [];
 
     const vertex = `
       precision highp float;
@@ -141,21 +150,13 @@ const Ribbons = ({
         0
       );
 
-      const line: any = {
-        spring,
-        friction,
-        mouseVelocity: new Vec3(),
-        mouseOffset
-      };
-
       const count = pointCount;
       const points = [];
       for (let i = 0; i < count; i++) {
         points.push(new Vec3());
       }
-      line.points = points;
 
-      line.polyline = new Polyline(gl, {
+      const polyline = new Polyline(gl, {
         points,
         vertex,
         fragment,
@@ -169,19 +170,29 @@ const Ribbons = ({
           uEnableFade: { value: enableFade ? 1.0 : 0.0 }
         }
       });
-      line.polyline.mesh.setParent(scene);
+      polyline.mesh.setParent(scene);
+
+      const line: RibbonLine = {
+        spring,
+        friction,
+        mouseVelocity: new Vec3(),
+        mouseOffset,
+        polyline,
+        points
+      };
       lines.push(line);
     });
 
     resize();
 
     const mouse = new Vec3();
-    function updateMouse(e: any) {
-      let x, y;
-      if (e.changedTouches && e.changedTouches.length) {
+    function updateMouse(e: MouseEvent | TouchEvent) {
+      let x = 0;
+      let y = 0;
+      if ('changedTouches' in e && e.changedTouches && e.changedTouches.length) {
         x = e.changedTouches[0].clientX;
         y = e.changedTouches[0].clientY;
-      } else {
+      } else if ('clientX' in e) {
         x = e.clientX;
         y = e.clientY;
       }

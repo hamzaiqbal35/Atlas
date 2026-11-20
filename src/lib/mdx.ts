@@ -7,6 +7,7 @@ const contentDirectory = path.join(process.cwd(), 'content');
 export interface MDXDocument {
   slug: string;
   category: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   frontmatter: Record<string, any>;
   content: string;
 }
@@ -37,7 +38,7 @@ export function getDocumentBySlug(category: string, slug: string): MDXDocument |
       frontmatter: data,
       content,
     };
-  } catch (e) {
+  } catch {
     return null;
   }
 }

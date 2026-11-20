@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useMemo } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, ThreeEvent } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -36,10 +36,15 @@ const jupiterFragmentShader = `
 export function Jupiter() {
   const meshRef = useRef<THREE.Group>(null);
   const planetRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.ShaderMaterial>(null);
   
-  
-  const colorMap = useTexture("/jupiter_texture.png");
-  colorMap.wrapS = THREE.RepeatWrapping;
+  const rawTexture = useTexture("/jupiter_texture.png");
+  const colorMap = useMemo(() => {
+    const texture = rawTexture.clone();
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.needsUpdate = true;
+    return texture;
+  }, [rawTexture]);
 
   const uniforms = useMemo(() => ({
     time: { value: 0 },
@@ -49,7 +54,9 @@ export function Jupiter() {
   useFrame((state, delta) => {
     if (planetRef.current) {
       planetRef.current.rotation.y += delta * 0.121; // 9.9 hours
-      uniforms.time.value += delta;
+    }
+    if (materialRef.current) {
+      materialRef.current.uniforms.time.value += delta;
     }
     if (meshRef.current) {
       // Rotate the whole group slowly to move the moons
@@ -57,17 +64,17 @@ export function Jupiter() {
     }
   });
 
-  const handlePointerOver = (e: any) => {
+  const handlePointerOver = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'pointer';
   };
 
-  const handlePointerOut = (e: any) => {
+  const handlePointerOut = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'auto';
   };
 
-  const createMoonHandler = (id: string) => (e: any) => {
+  const createMoonHandler = (id: string) => (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
     window.location.href = `/body/${id}`;
   };
@@ -85,6 +92,7 @@ export function Jupiter() {
       >
         <sphereGeometry args={[4.5, 64, 64]} />
         <shaderMaterial 
+          ref={materialRef}
           vertexShader={jupiterVertexShader}
           fragmentShader={jupiterFragmentShader}
           uniforms={uniforms}

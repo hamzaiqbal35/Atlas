@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Sparkles, ArrowRight, Orbit, Compass, Layers, Globe } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 const GALAXIES = [
   {

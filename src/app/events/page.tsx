@@ -145,9 +145,8 @@ export default function EventsPage() {
 
         {/* Events Grid: ReactBits Glowing Space Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {COSMIC_EVENTS.map((event, idx) => {
+          {COSMIC_EVENTS.map((event) => {
             const IconComponent = event.icon;
-            const indexStr = String(idx + 1).padStart(2, '0');
 
             return (
               <Link 

@@ -9,7 +9,7 @@ import { TiltCard } from "./TiltCard";
 import Link from "next/link";
 import { Button } from "./button";
 import { fallbackBodies } from "@/lib/fallbackData";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronUp, ChevronDown } from "lucide-react";
 
 export function InfoPanel() {

@@ -10,6 +10,22 @@ const springValues = {
   mass: 2
 };
 
+interface TiltedCardProps {
+  imageSrc?: string;
+  altText?: string;
+  captionText?: string;
+  containerHeight?: string;
+  containerWidth?: string;
+  imageHeight?: string;
+  imageWidth?: string;
+  scaleOnHover?: number;
+  rotateAmplitude?: number;
+  showMobileWarning?: boolean;
+  showTooltip?: boolean;
+  overlayContent?: React.ReactNode;
+  displayOverlayContent?: boolean;
+}
+
 export default function TiltedCard({
   imageSrc,
   altText = 'Tilted card image',
@@ -24,7 +40,7 @@ export default function TiltedCard({
   showTooltip = true,
   overlayContent = null,
   displayOverlayContent = false
-}: any) {
+}: TiltedCardProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -41,7 +57,7 @@ export default function TiltedCard({
 
   const [lastY, setLastY] = useState(0);
 
-  function handleMouse(e: any) {
+  function handleMouse(e: React.MouseEvent<HTMLDivElement>) {
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();

@@ -190,7 +190,24 @@ export default function GalaxyBackground({
   autoCenterRepulsion = 0,
   transparent = true,
   ...rest
-}: any) {
+}: React.HTMLAttributes<HTMLDivElement> & {
+  focal?: [number, number];
+  rotation?: [number, number];
+  starSpeed?: number;
+  density?: number;
+  hueShift?: number;
+  disableAnimation?: boolean;
+  speed?: number;
+  mouseInteraction?: boolean;
+  glowIntensity?: number;
+  saturation?: number;
+  mouseRepulsion?: boolean;
+  repulsionStrength?: number;
+  twinkleIntensity?: number;
+  rotationSpeed?: number;
+  autoCenterRepulsion?: number;
+  transparent?: boolean;
+}) {
   const ctnDom = useRef<HTMLDivElement>(null);
   const targetMousePos = useRef({ x: 0.5, y: 0.5 });
   const smoothMousePos = useRef({ x: 0.5, y: 0.5 });
@@ -214,24 +231,8 @@ export default function GalaxyBackground({
       gl.clearColor(0, 0, 0, 1);
     }
 
-    let program: Program;
-
-    function resize() {
-      const scale = 1;
-      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
-      if (program) {
-        program.uniforms.uResolution.value = new Color(
-          gl.canvas.width,
-          gl.canvas.height,
-          gl.canvas.width / gl.canvas.height
-        );
-      }
-    }
-    window.addEventListener('resize', resize, false);
-    resize();
-
     const geometry = new Triangle(gl);
-    program = new Program(gl, {
+    const program = new Program(gl, {
       vertex: vertexShader,
       fragment: fragmentShader,
       uniforms: {
@@ -259,6 +260,20 @@ export default function GalaxyBackground({
         uTransparent: { value: transparent }
       }
     });
+
+    function resize() {
+      const scale = 1;
+      renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
+      if (program) {
+        program.uniforms.uResolution.value = new Color(
+          gl.canvas.width,
+          gl.canvas.height,
+          gl.canvas.width / gl.canvas.height
+        );
+      }
+    }
+    window.addEventListener('resize', resize, false);
+    resize();
 
     const mesh = new Mesh(gl, { geometry, program });
     let animateId: number;

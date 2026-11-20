@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useMemo, useEffect, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useRef, useMemo, useEffect } from "react";
+import { useFrame, ThreeEvent } from "@react-three/fiber";
 import * as THREE from "three";
 
 function AsteroidRing({ 
@@ -50,7 +50,7 @@ function AsteroidRing({
       meshRef.current.setMatrixAt(i, dummy.matrix);
     }
     meshRef.current.instanceMatrix.needsUpdate = true;
-  }, [count, innerRadius, outerRadius, stoneSize]);
+  }, [count, innerRadius, outerRadius, stoneSize, dummy]);
 
   useFrame((_, delta) => {
     if (meshRef.current) {
@@ -59,7 +59,7 @@ function AsteroidRing({
   });
 
   return (
-    <instancedMesh ref={meshRef} args={[undefined as any, undefined as any, count]} castShadow receiveShadow frustumCulled={false}>
+    <instancedMesh ref={meshRef} args={[undefined as unknown as THREE.BufferGeometry, undefined as unknown as THREE.Material, count]} castShadow receiveShadow frustumCulled={false}>
       <dodecahedronGeometry args={[1, 0]} />
       <meshStandardMaterial color={color} roughness={0.9} metalness={0.1} />
     </instancedMesh>
@@ -70,10 +70,8 @@ export function Saturn() {
   const planetRef = useRef<THREE.Mesh>(null);
   const moonRef = useRef<THREE.Mesh>(null);
   
-  const [textures, setTextures] = useState<{ planet: THREE.Texture } | null>(null);
-
-  useEffect(() => {
-    // Generate Procedural Saturn Texture (Bands)
+  const texture = useMemo(() => {
+    if (typeof document === 'undefined') return null;
     const pCanvas = document.createElement('canvas');
     pCanvas.width = 2;
     pCanvas.height = 512;
@@ -97,13 +95,14 @@ export function Saturn() {
     }
     const planetTex = new THREE.CanvasTexture(pCanvas);
     planetTex.colorSpace = THREE.SRGBColorSpace;
-
-    setTextures({ planet: planetTex });
-
-    return () => {
-      planetTex.dispose();
-    };
+    return planetTex;
   }, []);
+
+  useEffect(() => {
+    return () => {
+      texture?.dispose();
+    };
+  }, [texture]);
   
   useFrame((state, delta) => {
     if (planetRef.current) {
@@ -117,17 +116,17 @@ export function Saturn() {
     }
   });
 
-  const handlePointerOver = (e: any) => {
+  const handlePointerOver = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'pointer';
   };
 
-  const handlePointerOut = (e: any) => {
+  const handlePointerOut = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     document.body.style.cursor = 'auto';
   };
 
-  if (!textures) return null;
+  if (!texture) return null;
 
   return (
     <group position={[230, 0, 0]} rotation={[0.4, 0, 0]}>
@@ -142,7 +141,7 @@ export function Saturn() {
       >
         <sphereGeometry args={[3.8, 64, 64]} />
         <meshStandardMaterial 
-          map={textures.planet} 
+          map={texture} 
           metalness={0.0} 
           roughness={1.0} 
         />

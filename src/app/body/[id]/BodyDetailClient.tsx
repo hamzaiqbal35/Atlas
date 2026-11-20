@@ -4,23 +4,25 @@ import { useRef, useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { 
-  ArrowLeft, Thermometer, Weight, Activity, Orbit, Ruler, Info, 
-  Sparkles, Compass, Shield, Zap, Radio
+  ArrowLeft, Thermometer, Activity, Orbit, Ruler, Info, 
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import LineSidebar from "@/components/ui/LineSidebar";
 import { DetailedEncyclopedia, SectionContent } from "@/data/detailedEncyclopedia";
 
 interface BodyDetailClientProps {
-  staticData: any;
-  liveData: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  staticData: Record<string, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  liveData: Record<string, any> | null;
   encyclopediaData?: DetailedEncyclopedia;
 }
 
-const renderSectionContent = (content?: SectionContent, _reverse = false) => {
+const renderSectionContent = (content?: SectionContent, isCompact?: boolean) => {
   if (!content) return null;
   return (
-    <div className="max-w-4xl mb-16">
+    <div className={`max-w-4xl ${isCompact ? 'mb-8' : 'mb-16'}`}>
       {content.text.map((paragraph, index) => (
         <p key={index} className="text-lg md:text-xl text-zinc-300 leading-relaxed mb-6 font-light">
           {paragraph}
@@ -175,7 +177,8 @@ const BODY_THEMES: Record<string, {
   },
 };
 
-export function BodyDetailClient({ staticData, liveData, encyclopediaData }: BodyDetailClientProps) {
+export function BodyDetailClient({ staticData, liveData: rawLiveData, encyclopediaData }: BodyDetailClientProps) {
+  const liveData = rawLiveData || {};
   const containerRef = useRef<HTMLDivElement>(null);
   const theme = BODY_THEMES[staticData?.id?.toLowerCase() || ''] || BODY_THEMES.default;
 

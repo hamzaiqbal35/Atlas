@@ -49,6 +49,18 @@ const updateCardGlowProperties = (card: HTMLElement, relativeX: number, relative
   card.style.setProperty('--glow-radius', `${radius}px`);
 };
 
+interface ParticleCardProps {
+  children?: React.ReactNode;
+  className?: string;
+  disableAnimations?: boolean;
+  style?: React.CSSProperties;
+  particleCount?: number;
+  glowColor?: string;
+  enableTilt?: boolean;
+  clickEffect?: boolean;
+  enableMagnetism?: boolean;
+}
+
 const ParticleCard = ({
   children,
   className = '',
@@ -59,14 +71,14 @@ const ParticleCard = ({
   enableTilt = true,
   clickEffect = false,
   enableMagnetism = false
-}: any) => {
+}: ParticleCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLElement[]>([]);
   const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isHoveredRef = useRef(false);
   const memoizedParticles = useRef<HTMLElement[]>([]);
   const particlesInitialized = useRef(false);
-  const magnetismAnimationRef = useRef<any>(null);
+  const magnetismAnimationRef = useRef<gsap.core.Tween | null>(null);
 
   const initializeParticles = useCallback(() => {
     if (particlesInitialized.current || !cardRef.current) return;
@@ -141,7 +153,6 @@ const ParticleCard = ({
     if (disableAnimations || !cardRef.current) return;
 
     const element = cardRef.current;
-    const innerContainer = element.querySelector('.magic-bento-card-inner') || element;
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
@@ -287,13 +298,21 @@ const ParticleCard = ({
   );
 };
 
+interface GlobalSpotlightProps {
+  gridRef: React.RefObject<HTMLDivElement | null>;
+  disableAnimations?: boolean;
+  enabled?: boolean;
+  spotlightRadius?: number;
+  glowColor?: string;
+}
+
 const GlobalSpotlight = ({
   gridRef,
   disableAnimations = false,
   enabled = true,
   spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
   glowColor = DEFAULT_GLOW_COLOR
-}: any) => {
+}: GlobalSpotlightProps) => {
   const spotlightRef = useRef<HTMLElement | null>(null);
   const isInsideSection = useRef(false);
 
@@ -436,7 +455,7 @@ const GlobalSpotlight = ({
 
     const handleMouseLeave = () => {
       isInsideSection.current = false;
-      gridRef.current?.querySelectorAll('.magic-bento-card').forEach((card: any) => {
+      gridRef.current?.querySelectorAll<HTMLElement>('.magic-bento-card').forEach((card) => {
         card.style.setProperty('--glow-intensity', '0');
       });
       if (spotlightRef.current) {
@@ -463,7 +482,7 @@ const GlobalSpotlight = ({
   return null;
 };
 
-const BentoCardGrid = ({ children, gridRef }: any) => (
+const BentoCardGrid = ({ children, gridRef }: { children: React.ReactNode; gridRef?: React.RefObject<HTMLDivElement | null> }) => (
   <div className="card-grid bento-section" ref={gridRef}>
     {children}
   </div>

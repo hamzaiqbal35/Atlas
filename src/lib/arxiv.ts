@@ -1,5 +1,3 @@
-import { XMLParser } from 'fast-xml-parser';
-
 export interface ArxivPaper {
   id: string;
   title: string;
@@ -7,6 +5,22 @@ export interface ArxivPaper {
   published: string;
   authors: string[];
   pdfUrl: string;
+}
+
+interface CrossRefAuthor {
+  given?: string;
+  family?: string;
+}
+
+interface CrossRefItem {
+  title?: string[];
+  author?: CrossRefAuthor[];
+  abstract?: string;
+  URL?: string;
+  DOI?: string;
+  created?: {
+    'date-time'?: string;
+  };
 }
 
 export async function getLatestPapers(query: string, limit: number = 5): Promise<ArxivPaper[]> {
@@ -28,17 +42,17 @@ export async function getLatestPapers(query: string, limit: number = 5): Promise
     }
 
     const data = await response.json();
-    const items = data.message?.items;
+    const items: CrossRefItem[] | undefined = data.message?.items;
     
     if (!items || !Array.isArray(items)) {
       return [];
     }
 
-    return items.map((item: any) => {
+    return items.map((item: CrossRefItem) => {
       // Authors can be missing or in a different format
       let authorsList: string[] = [];
       if (item.author && Array.isArray(item.author)) {
-        authorsList = item.author.map((a: any) => `${a.given || ''} ${a.family || ''}`.trim()).filter(Boolean);
+        authorsList = item.author.map((a: CrossRefAuthor) => `${a.given || ''} ${a.family || ''}`.trim()).filter(Boolean);
       }
       
       // Clean up abstract (often contains HTML tags like <p> or <jats:p>)
@@ -48,7 +62,7 @@ export async function getLatestPapers(query: string, limit: number = 5): Promise
 
       const title = item.title && item.title[0] ? item.title[0] : 'Untitled';
       const url = item.URL || '';
-      const published = item.created ? item.created['date-time'] : new Date().toISOString();
+      const published = item.created?.['date-time'] || new Date().toISOString();
 
       return {
         id: url || title,
@@ -58,7 +72,7 @@ export async function getLatestPapers(query: string, limit: number = 5): Promise
         authors: authorsList.length > 0 ? authorsList : ['Unknown Author'],
         pdfUrl: url
       };
-    }).filter((p: ArxivPaper) => p.pdfUrl); // Only return papers with a URL
+    }).filter((p): p is ArxivPaper => Boolean(p.pdfUrl)); // Only return papers with a URL
   } catch (error) {
     console.error('Error fetching CrossRef data:', error);
     return [];

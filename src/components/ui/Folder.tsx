@@ -21,7 +21,14 @@ const darkenColor = (hex: string, percent: number) => {
   return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
 };
 
-const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: any) => {
+interface FolderProps {
+  color?: string;
+  size?: number;
+  items?: React.ReactNode[];
+  className?: string;
+}
+
+const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: FolderProps) => {
   const maxItems = 3;
   const papers = items.slice(0, maxItems);
   while (papers.length < maxItems) {
@@ -43,7 +50,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: any
     }
   };
 
-  const handlePaperMouseMove = (e: any, index: number) => {
+  const handlePaperMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
     if (!open) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -57,7 +64,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: any
     });
   };
 
-  const handlePaperMouseLeave = (e: any, index: number) => {
+  const handlePaperMouseLeave = (_e: React.MouseEvent<HTMLDivElement>, index: number) => {
     setPaperOffsets(prev => {
       const newOffsets = [...prev];
       newOffsets[index] = { x: 0, y: 0 };
@@ -95,7 +102,7 @@ const Folder = ({ color = '#5227FF', size = 1, items = [], className = '' }: any
         aria-label={open ? 'Close folder' : 'Open folder'}
       >
         <div className="folder__back">
-          {papers.map((item: any, i: number) => (
+          {papers.map((item: React.ReactNode, i: number) => (
             <div
               key={i}
               className={`paper paper-${i + 1}`}

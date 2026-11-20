@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
+import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { elements, ElementData } from '@/data/elements';
-import { X, Info, Layers, Zap, Flame, Droplets } from 'lucide-react';
+import { X, Info, Layers, Zap, Flame } from 'lucide-react';
+
+const emptySubscribe = () => () => {};
 
 export default function PeriodicTable() {
   const [selectedElement, setSelectedElement] = useState<ElementData | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -111,7 +110,7 @@ export default function PeriodicTable() {
                   {selectedElement.bohr_model_image && (
                     <div className="mt-4 pt-4 border-t border-zinc-700/50 flex flex-col items-center">
                       <div className="text-xs text-zinc-400 uppercase tracking-wider mb-2 text-center">Bohr Model</div>
-                      <img src={selectedElement.bohr_model_image} alt={`${selectedElement.name} Bohr Model`} className="w-32 h-32 object-contain filter invert opacity-80" />
+                      <Image src={selectedElement.bohr_model_image} alt={`${selectedElement.name} Bohr Model`} width={128} height={128} unoptimized className="w-32 h-32 object-contain filter invert opacity-80" />
                     </div>
                   )}
                 </div>
@@ -136,7 +135,7 @@ export default function PeriodicTable() {
 
                 {selectedElement.image && (
                   <div className="mb-8 w-full rounded-xl overflow-hidden border border-zinc-700/50 shadow-lg relative bg-black">
-                    <img src={selectedElement.image.url} alt={selectedElement.image.title} className="w-full h-48 object-cover opacity-70 hover:opacity-100 transition-opacity" />
+                    <Image src={selectedElement.image.url} alt={selectedElement.image.title} width={600} height={200} unoptimized className="w-full h-48 object-cover opacity-70 hover:opacity-100 transition-opacity" />
                     <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 text-xs text-zinc-300 flex justify-between items-end">
                       <span className="truncate pr-4">{selectedElement.image.title}</span>
                     </div>
