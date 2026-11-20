@@ -1,101 +1,106 @@
 # Atlas
 
-Atlas is an interactive digital space encyclopedia and 3D cosmic knowledge experience. Designed to mirror how astronomers, astrophysicists, and planetary scientists structure our understanding of the universe, Atlas combines high-fidelity 3D simulation with a deep, structured scientific knowledge base spanning the subatomic to the cosmological scale.
+Interactive 3D solar system simulation and multi-scale scientific knowledge base.
+
+[Live Demo](https://atlas-rho-tan.vercel.app/) &middot; [Architecture](#architecture--tech-stack) &middot; [Getting Started](#getting-started)
+
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-blue?style=flat-square&logo=react)](https://react.dev/)
+[![Three.js](https://img.shields.io/badge/Three.js-r185-black?style=flat-square&logo=three.js)](https://threejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-gray?style=flat-square)](LICENSE)
+
+---
 
 ## Overview
 
-Unlike conventional static references or purely decorative space visualizations, Atlas models the cosmos as a multi-scale knowledge graph. Users can traverse through 40 scientific domains—from fundamental particles and spacetime curvature to stellar evolution, exoplanets, galactic superclusters, and human spaceflight missions—navigating smoothly between interactive WebGL simulations and rich, peer-reviewed scientific literature.
+Atlas is a WebGL-based planetary exploration application and structured scientific encyclopedia. Built with Next.js 16, React Three Fiber, and Three.js, it bridges real-time graphics simulation with academic literature across 40 scientific domains.
 
-## Key Features
+Users can navigate an interactive, mathematically mapped solar system, inspect real-time telemetry for planetary bodies, explore an embedded periodic table of elements, and read technical MDX articles featuring embedded 3D models and live academic papers from arXiv and CrossRef.
 
-- **Interactive 3D Solar System & Orbitals**: Real-time rendering of planets, moons, and the Sun built with Three.js and React Three Fiber (R3F). Features custom shaders, dynamic lighting, atmospheric scattering layers, Saturnian ring geometry, and procedural surfaces.
-- **High-Performance Instanced Asteroid Belt**: Dense asteroid field simulated with Three.js `InstancedMesh` for 60 FPS performance across desktop environments.
-- **Cinematic Scroll Experience**: Smooth scroll-linked orbital camera pathing powered by Lenis and GSAP, flying users from the Sun out to the Kuiper Belt with integrated telemetry overlays and mini-map tracking.
-- **40-Domain Scientific Taxonomy**: Comprehensive knowledge catalog categorizing the universe across 40 distinct domains, including Fundamental Physics, Quantum Mechanics, Cosmology, Galaxies, Black Holes, Spectroscopy, Astrobiology, and Space Technology.
-- **Interactive Science Tools & MDX Articles**:
-  - Mathematical typesetting support with KaTeX (`remark-math` and `rehype-katex`).
-  - Interactive Periodic Table of Elements with comprehensive chemical, isotopic, and atomic data.
-  - Interactive 3D Planet Models embedded directly within article documentation.
-  - Live Peer-Reviewed Research Papers fetched dynamically from arXiv and CrossRef APIs.
-- **OmniSearch Command Palette**: Raycast-style global search (`Cmd+K` / `Ctrl+K`) powered by `cmdk` for fast discovery across celestial bodies, encyclopedia articles, and taxonomy categories.
-- **Telemetry & Celestial Data**: Dedicated detail pages (`/body/[id]`) integrating live orbital characteristics, physical metrics, and comparative data charts via the Le Systeme Solaire REST API.
-- **Adaptive Visual Architecture**: Minimalist, technical aesthetic inspired by high-density scientific dashboards and modern developer tools, featuring custom fluid navigation and bento-grid categorization hubs.
+---
 
-## Tech Stack
+## Core Capabilities
 
-### Core Framework & Language
-- **Framework**: Next.js 16 (App Router with Turbopack)
-- **Library**: React 19
-- **Language**: TypeScript
+### Real-Time 3D Simulation
+* **Solar Corona & Prominences**: Multi-octave simplex noise vertex and fragment shaders simulating convective plasma turbulence and limb darkening.
+* **Atmospheric Storm Bands**: Custom GLSL UV-displacement shaders modeling differential rotational speeds across Jupiter's cloud belts.
+* **Planetary Ring Mapping**: Custom UV projection mapping to render Saturn's rings with accurate transparency and radial geometry.
+* **Instanced Asteroid Belt**: 8,000 procedural rock bodies simulated in a single draw call via `THREE.InstancedMesh` to maintain a steady 60 FPS on desktop browsers.
 
-### 3D Graphics & Simulation
-- **Three.js**: Core 3D engine
-- **React Three Fiber (@react-three/fiber)**: Declarative 3D scene graph
-- **React Three Drei (@react-three/drei)**: Camera controls, shaders, and 3D environment helpers
-- **OGL**: Lightweight WebGL utility library
+### Camera Pathing & Telemetry
+* **Scroll-Linked Flythrough**: Orbital camera rig driven by Lenis smooth scrolling and GSAP timelines, translating scroll position into celestial flybys from the Sun to the outer planets.
+* **Spatial Telemetry**: Live readout overlays displaying distance, orbital velocity, and position coordinates synchronized to the viewport.
 
-### Styling & Animation
-- **Styling**: Tailwind CSS with Tailwind Typography and Tailwind CSS Animate
-- **Smooth Scroll**: Lenis
-- **Transitions & Springs**: Motion (Framer Motion)
-- **Timelines**: GSAP & ScrollTrigger
-- **Icons**: Lucide React
+### Scientific Taxonomy & Knowledge Base
+* **40 Disciplinary Domains**: Comprehensive curriculum covering particle physics, quantum mechanics, general relativity, stellar evolution, and deep-space cosmology.
+* **Telemetry Dashboards (`/body/[id]`)**: Detailed physical and orbital telemetry (semimajor axis, eccentricity, bulk density, surface gravity, escape velocity, and axial tilt) integrated with the *Le Système Solaire* API.
+* **Live Scholarly Research**: Automatic indexing of peer-reviewed preprints and research papers via the CrossRef and arXiv REST APIs.
+* **LaTeX Mathematics**: Precise rendering of formulas and derivations via KaTeX (`remark-math` and `rehype-katex`).
+* **Interactive Periodic Table**: Full 118-element periodic grid with categorization by block, electron shell configurations, and elemental properties.
 
-### Content & Data Pipeline
-- **Content Rendering**: next-mdx-remote
-- **Scientific Math**: remark-math, rehype-katex
-- **Metadata Parsing**: gray-matter, fast-xml-parser
-- **State Management**: Zustand
-- **Command Palette**: cmdk
+### Navigation & Discovery
+* **Command Palette**: Raycast-style global search (`Cmd+K` / `Ctrl+K`) powered by `cmdk` for indexing planets, taxonomy domains, and research topics.
+
+---
+
+## Architecture & Tech Stack
+
+| Layer | Technology | Usage |
+| :--- | :--- | :--- |
+| **Framework** | Next.js 16 (App Router) | Server components, routing, and Turbopack bundler |
+| **UI Library** | React 19 | Concurrency and component lifecycle |
+| **Language** | TypeScript 5 | Strict static typing and interface definitions |
+| **Graphics** | Three.js & React Three Fiber | WebGL scene management and rendering loop |
+| **3D Ecosystem** | `@react-three/drei` & OGL | Camera helpers, texture pipelines, and WebGL primitives |
+| **Styling** | Tailwind CSS | Utility-first styling with typography and animation plugins |
+| **Motion & Scroll** | GSAP & Lenis | Timeline orchestration and smooth scroll normalization |
+| **Content** | `next-mdx-remote` & `gray-matter` | Dynamic MDX parsing and frontmatter extraction |
+| **Typesetting** | KaTeX & `remark-math` | High-performance LaTeX formula rendering |
+| **State** | Zustand | Global stores for active celestial targets and UI states |
+| **Search** | `cmdk` | Accessible keyboard-driven command palette |
+
+---
 
 ## Project Structure
 
 ```text
 Atlas/
-├── content/                     # MDX scientific articles organized by taxonomy domain
+├── content/                     # MDX articles categorized by scientific domain
 │   ├── atoms-chemistry/
 │   ├── cosmology/
 │   ├── dwarf-planets/
 │   ├── elementary-particles/
 │   ├── fundamental-physics/
 │   ├── galaxies/
-│   ├── galaxy-groups/
-│   ├── galaxy-structures/
-│   ├── matter/
 │   ├── moons/
-│   ├── physics/
 │   ├── planets/
-│   ├── small-bodies/
 │   ├── space-time/
-│   ├── stars/
-│   └── the-universe/
-├── public/                      # Static textures, imagery, and assets
+│   └── stars/
+├── public/                      # Static textures, heightmaps, and planetary assets
 ├── src/
-│   ├── app/                     # Next.js App Router pages and API routes
-│   │   ├── api/
-│   │   │   ├── arxiv/           # CrossRef & arXiv research paper fetcher
-│   │   │   └── search/          # Global search indexing endpoint
-│   │   ├── body/[id]/           # Individual celestial body telemetry & detail view
-│   │   ├── events/              # Astronomical phenomena and events
-│   │   ├── explore/             # 40-domain knowledge hub and category directories
-│   │   ├── galaxies/            # Deep-sky and galactic directory
-│   │   ├── globals.css          # Global styles, variables, and typography
-│   │   ├── layout.tsx           # Root layout with global navigation and 3D canvas
-│   │   └── page.tsx             # Interactive solar system landing experience
+│   ├── app/                     # Next.js App Router endpoints and pages
+│   │   ├── api/                 # Search and arXiv/CrossRef proxy endpoints
+│   │   ├── body/[id]/           # Individual celestial body telemetry views
+│   │   ├── events/              # Astronomical phenomena schedule
+│   │   ├── explore/             # 40-domain knowledge index and article reader
+│   │   ├── galaxies/            # Deep-sky catalog
+│   │   └── page.tsx             # Interactive 3D solar system homepage
 │   ├── components/
-│   │   ├── canvas/              # R3F celestial bodies, shaders, camera system, scene
-│   │   ├── mdx/                 # Embedded MDX interactive components (3D models)
-│   │   ├── ui/                  # Periodic table, magic bento, menus, cards, panels
-│   │   ├── OmniSearch.tsx       # Cmd+K search dialog
-│   │   ├── ResearchPapers.tsx   # Live scientific paper integration component
-│   │   ├── ScrollManager.tsx    # Scroll synchronization engine
-│   │   └── SmoothScroll.tsx     # Lenis smooth scrolling provider
-│   ├── data/                    # Static catalogs, knowledge graph nodes, element data
-│   ├── lib/                     # API clients, category registries, MDX loader utilities
-│   └── store/                   # Zustand state stores (camera, UI, knowledge graph)
+│   │   ├── canvas/              # Three.js celestial components, shaders, and camera
+│   │   ├── mdx/                 # Embedded MDX components (e.g. 3D planet visualizer)
+│   │   ├── ui/                  # Periodic table, menus, navigation, bento grids
+│   │   ├── OmniSearch.tsx       # Global search modal
+│   │   └── ResearchPapers.tsx   # Dynamic scholarly paper integration
+│   ├── data/                    # Static catalogs and periodic table dataset
+│   ├── lib/                     # API helpers, MDX loaders, and theme utilities
+│   └── store/                   # Zustand state stores
 ├── package.json
 └── tsconfig.json
 ```
+
+---
 
 ## Getting Started
 
@@ -106,46 +111,37 @@ Atlas/
 
 ### Installation
 
-Clone the repository and install dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/hamzaiqbal35/Atlas.git
+   cd Atlas
+   ```
 
-```bash
-git clone https://github.com/your-username/atlas.git
-cd atlas
-npm install
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-### Development Server
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-Start the development server with Turbopack enabled:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```bash
-npm run dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## Scripts
 
-### Production Build
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Starts the local dev server with Next.js Turbopack |
+| `npm run build` | Compiles the production build and runs TypeScript verification |
+| `npm run start` | Serves the production build locally |
+| `npm run lint` | Runs ESLint across all source files |
 
-To generate an optimized production build:
-
-```bash
-npm run build
-```
-
-To run the production server locally:
-
-```bash
-npm run start
-```
-
-### Linting
-
-Run ESLint to check for code quality and formatting issues:
-
-```bash
-npm run lint
-```
+---
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
